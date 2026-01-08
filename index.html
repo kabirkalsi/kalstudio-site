@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kalstudio</title>
+    <meta
+      name="description"
+      content="Kalstudio is a creative studio building limited-run concepts. Join the waitlist for future drops."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <a class="logo" href="#top">Kalstudio</a>
+        <nav class="nav">
+          <a class="btn ghost" href="#about">About</a>
+          <a class="btn primary" href="#shop">Shop</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="about" id="about" aria-label="About">
+          <p>Kalstudio is an independent object and furniture design studio based in New York.</p>
+          <p>Products are made to order or produced in small runs.</p>
+          <p>Quality and craftsmanship are core tenets of the studio's practice.</p>
+        </section>
+
+        <section class="shop" id="shop">
+          <div class="concept-grid">
+            <article class="concept-card" data-product="concept-01">
+              <h3>Concept 01</h3>
+              <div class="concept-images">
+                <button
+                  class="image-button"
+                  type="button"
+                  data-lightbox-index="0"
+                  data-lightbox-src="assets/images/TT2_process3.jpg"
+                >
+                  <img
+                    src="assets/images/TT2_process3.jpg"
+                    alt="Concept 01 process image 1"
+                    loading="lazy"
+                  />
+                </button>
+                <button
+                  class="image-button"
+                  type="button"
+                  data-lightbox-index="1"
+                  data-lightbox-src="assets/images/TT2_process2.jpg"
+                >
+                  <img
+                    src="assets/images/TT2_process2.jpg"
+                    alt="Concept 01 process image 2"
+                    loading="lazy"
+                  />
+                </button>
+                <button
+                  class="image-button"
+                  type="button"
+                  data-lightbox-index="2"
+                  data-lightbox-src="assets/images/TT2_process.jpg"
+                >
+                  <img
+                    src="assets/images/TT2_process.jpg"
+                    alt="Concept 01 process image 3"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <a
+                class="btn primary waitlist-link"
+                href="?product=concept-01#waitlist"
+                data-product-link="concept-01"
+              >
+                Join waitlist
+              </a>
+            </article>
+            <article class="concept-card" data-product="concept-02">
+              <h3>Concept 02</h3>
+              <a
+                class="btn primary waitlist-link"
+                href="?product=concept-02#waitlist"
+                data-product-link="concept-02"
+              >
+                Join waitlist
+              </a>
+            </article>
+            <article class="concept-card" data-product="concept-03">
+              <h3>Concept 03</h3>
+              <a
+                class="btn primary waitlist-link"
+                href="?product=concept-03#waitlist"
+                data-product-link="concept-03"
+              >
+                Join waitlist
+              </a>
+            </article>
+          </div>
+        </section>
+
+        <section class="waitlist" id="waitlist">
+          <div class="section-head">
+            <h2 id="waitlist-title">Waitlist</h2>
+          </div>
+          <form class="waitlist-form" id="waitlist-form">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+            />
+
+            <label for="product-select">Product</label>
+            <select id="product-select" name="product" required>
+              <option value="general">General</option>
+              <option value="concept-01">Concept 01</option>
+              <option value="concept-02">Concept 02</option>
+              <option value="concept-03">Concept 03</option>
+            </select>
+
+            <button class="btn primary" type="submit">Join waitlist</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </main>
+
+      <div class="lightbox" id="lightbox" aria-hidden="true">
+        <div class="lightbox-content" role="dialog" aria-label="Concept images">
+          <button class="lightbox-close" id="lightbox-close" type="button">
+            Close
+          </button>
+          <img
+            class="lightbox-image"
+            id="lightbox-image"
+            src="assets/images/TT2_process3.jpg"
+            alt="Concept 01 process image 1"
+          />
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <p>Copyright 2025 Kalstudio</p>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#shop">Shop</a>
+          <a href="https://www.tiktok.com/@bykalstudio" target="_blank" rel="noreferrer">
+            TikTok
+          </a>
+          <a href="https://www.instagram.com/bykalstudio" target="_blank" rel="noreferrer">
+            Instagram
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
