@@ -7,7 +7,11 @@ const productLabels = {
 };
 
 const waitlistForm = document.getElementById("waitlist-form");
-const productSelect = document.getElementById("product-select");
+const productCheckboxes = Array.from(
+  document.querySelectorAll('input[name="products"]')
+);
+const allProductsCheckbox = document.getElementById("product-all");
+const selectedCount = document.getElementById("selected-count");
 const formStatus = document.getElementById("form-status");
 const waitlistTitle = document.getElementById("waitlist-title");
 const conceptCards = document.querySelectorAll(".concept-card");
@@ -16,16 +20,13 @@ const waitlistSection = document.getElementById("waitlist");
 const conceptToggles = document.querySelectorAll("[data-toggle]");
 const galleries = new Map();
 let activeGalleryState = null;
+let galleryHintHidden = false;
 
 function updateTitle(product) {
   if (!waitlistTitle) {
     return;
   }
-  if (product && product !== "general" && productLabels[product]) {
-    waitlistTitle.textContent = `Waitlist - ${productLabels[product]}`;
-    return;
-  }
-  waitlistTitle.textContent = "Waitlist";
+  waitlistTitle.textContent = "Stay Updated";
 }
 
 function highlightCard(product) {
@@ -40,7 +41,7 @@ function highlightCard(product) {
 
 function updateUrl(product) {
   const url = new URL(window.location.href);
-  if (product && product !== "general") {
+  if (product && product !== "all") {
     url.searchParams.set("product", product);
   } else {
     url.searchParams.delete("product");
@@ -49,15 +50,45 @@ function updateUrl(product) {
 }
 
 function setSelectedProduct(product, options = {}) {
-  const normalized = productLabels[product] ? product : "general";
-  if (productSelect) {
-    productSelect.value = normalized;
+  const normalized = productLabels[product] ? product : "all";
+  if (productCheckboxes.length) {
+    if (normalized === "all") {
+      if (allProductsCheckbox) {
+        allProductsCheckbox.checked = true;
+      }
+      productCheckboxes.forEach((checkbox) => {
+        if (checkbox !== allProductsCheckbox) {
+          checkbox.checked = false;
+        }
+      });
+    } else {
+      if (allProductsCheckbox) {
+        allProductsCheckbox.checked = false;
+      }
+      productCheckboxes.forEach((checkbox) => {
+        checkbox.checked = checkbox.value === normalized;
+      });
+    }
   }
   updateTitle(normalized);
   highlightCard(normalized);
   if (options.updateUrl) {
     updateUrl(normalized);
   }
+}
+
+function updateSelectedCount() {
+  if (!selectedCount || productCheckboxes.length === 0) {
+    return;
+  }
+  const selected = productCheckboxes.filter(
+    (checkbox) => checkbox !== allProductsCheckbox && checkbox.checked
+  );
+  if (selected.length === 0) {
+    selectedCount.textContent = "";
+    return;
+  }
+  selectedCount.textContent = `Selected: ${selected.length}`;
 }
 
 const params = new URLSearchParams(window.location.search);
@@ -71,6 +102,8 @@ if (initialProduct) {
     });
   }
 }
+
+updateSelectedCount();
 
 waitlistLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
@@ -86,9 +119,28 @@ waitlistLinks.forEach((link) => {
   });
 });
 
-if (productSelect) {
-  productSelect.addEventListener("change", () => {
-    setSelectedProduct(productSelect.value, { updateUrl: true });
+if (productCheckboxes.length) {
+  productCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => {
+      if (checkbox === allProductsCheckbox && checkbox.checked) {
+        productCheckboxes.forEach((item) => {
+          if (item !== allProductsCheckbox) {
+            item.checked = false;
+          }
+        });
+      } else if (checkbox !== allProductsCheckbox) {
+        if (checkbox.checked && allProductsCheckbox) {
+          allProductsCheckbox.checked = false;
+        }
+        const anySelected = productCheckboxes.some(
+          (item) => item !== allProductsCheckbox && item.checked
+        );
+        if (!anySelected && allProductsCheckbox) {
+          allProductsCheckbox.checked = true;
+        }
+      }
+      updateSelectedCount();
+    });
   });
 }
 
@@ -100,7 +152,16 @@ if (waitlistForm) {
     }
 
     const formData = new FormData(waitlistForm);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = {};
+    formData.forEach((value, key) => {
+      if (payload[key] === undefined) {
+        payload[key] = value;
+      } else if (Array.isArray(payload[key])) {
+        payload[key].push(value);
+      } else {
+        payload[key] = [payload[key], value];
+      }
+    });
 
     if (!waitlistEndpoint) {
       if (formStatus) {
@@ -108,7 +169,8 @@ if (waitlistForm) {
           "Thanks! Add a waitlist endpoint in script.js to capture submissions.";
       }
       waitlistForm.reset();
-      setSelectedProduct("general", { updateUrl: true });
+      setSelectedProduct("all", { updateUrl: true });
+      updateSelectedCount();
       return;
     }
 
@@ -132,7 +194,8 @@ if (waitlistForm) {
         formStatus.textContent = "You are on the list.";
       }
       waitlistForm.reset();
-      setSelectedProduct("general", { updateUrl: true });
+      setSelectedProduct("all", { updateUrl: true });
+      updateSelectedCount();
     } catch (error) {
       if (formStatus) {
         formStatus.textContent = "Something went wrong. Please try again.";
@@ -144,6 +207,7 @@ if (waitlistForm) {
 function setupGallery(gallery) {
   const main = gallery.querySelector(".gallery-main");
   const buttons = Array.from(gallery.querySelectorAll("[data-src]"));
+  const thumbs = Array.from(gallery.querySelectorAll(".gallery-thumbs img"));
   let index = 0;
 
   function show(nextIndex) {
@@ -154,6 +218,11 @@ function setupGallery(gallery) {
     const button = buttons[index];
     main.src = button.dataset.src;
     main.alt = button.dataset.alt || "Concept image";
+    thumbs.forEach((thumb) => {
+      if (thumb.dataset.src && thumb.src !== thumb.dataset.src) {
+        thumb.src = thumb.dataset.src;
+      }
+    });
     buttons.forEach((item, i) => {
       item.classList.toggle("is-active", i === index);
     });
@@ -189,7 +258,9 @@ function setupGallery(gallery) {
     activeGalleryState = state;
   });
 
-  show(0);
+  if (main && !main.src && main.dataset.src) {
+    main.src = main.dataset.src;
+  }
   galleries.set(gallery, state);
 }
 
@@ -206,9 +277,17 @@ conceptToggles.forEach((toggle) => {
     }
     const isOpen = concept.classList.toggle("is-open");
     toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    const hint = concept.querySelector(".concept-hint");
+    if (hint) {
+      hint.textContent = isOpen ? "Hide details" : "View details";
+    }
     if (isOpen) {
       const gallery = concept.querySelector("[data-gallery]");
-      activeGalleryState = galleries.get(gallery) || activeGalleryState;
+      const galleryState = galleries.get(gallery);
+      if (galleryState) {
+        galleryState.show(0);
+      }
+      activeGalleryState = galleryState || activeGalleryState;
     }
   });
 });
@@ -216,6 +295,12 @@ conceptToggles.forEach((toggle) => {
 document.addEventListener("keydown", (event) => {
   if (!activeGalleryState) {
     return;
+  }
+  if (!galleryHintHidden) {
+    document.querySelectorAll("[data-gallery-hint]").forEach((hint) => {
+      hint.classList.add("is-hidden");
+    });
+    galleryHintHidden = true;
   }
   if (event.key === "ArrowRight") {
     event.preventDefault();

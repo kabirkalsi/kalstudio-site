@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kalstudio combined signup preview</title>
+    <style>
+      @font-face {
+        font-family: "Messina Sans";
+        src: url("assets/fonts/MessinaSans-Light.woff2") format("woff2"),
+          url("assets/fonts/MessinaSans-Light.woff") format("woff");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Messina Sans";
+        src: url("assets/fonts/MessinaSans-Regular.woff2") format("woff2"),
+          url("assets/fonts/MessinaSans-Regular.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root {
+        --bg: #f7f0e7;
+        --ink: #1b140f;
+        --muted: #6b5f52;
+        --line: #e5d6c5;
+        --card: #fffaf4;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Messina Sans", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.6;
+        font-size: 16px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      button,
+      input,
+      select,
+      label {
+        font: inherit;
+        letter-spacing: normal;
+        text-transform: none;
+      }
+
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+        display: grid;
+        gap: 36px;
+      }
+
+      header h1 {
+        margin: 0;
+        font-weight: 400;
+      }
+
+      header p {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .centered {
+        margin: 0 auto;
+        width: min(620px, 100%);
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--card);
+        padding: 28px;
+        display: grid;
+        gap: 16px;
+      }
+
+      .panel h2 {
+        margin: 0;
+        font-weight: 300;
+        font-size: 1.1rem;
+      }
+
+      .panel p {
+        margin: 0;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      .panel-text {
+        text-align: center;
+      }
+
+      .panel-text p {
+        margin: 6px auto 0;
+        max-width: 440px;
+      }
+
+      .form-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      label {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: #fff;
+        font-family: "Messina Sans", sans-serif;
+        font-size: 1rem;
+      }
+
+      .checkbox-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      .checkbox-row input {
+        width: 16px;
+        height: 16px;
+      }
+
+      .cta {
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--muted);
+        text-decoration: underline;
+        text-decoration-color: rgba(27, 20, 15, 0.35);
+        text-underline-offset: 0.25em;
+        cursor: pointer;
+        justify-self: center;
+      }
+
+      .cta:hover {
+        color: var(--ink);
+        text-decoration-color: rgba(27, 20, 15, 0.7);
+      }
+
+      .note {
+        font-size: 0.9rem;
+        color: var(--muted);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <h1>Combined waitlist + newsletter</h1>
+        <p>One form to capture product interest and studio notes without split intent.</p>
+      </header>
+
+      <section class="centered">
+        <h2>Waitlist</h2>
+        <div class="panel">
+          <div class="panel-text">
+            <p>Early access to future drops, plus occasional notes on process and making.</p>
+          </div>
+          <form class="form-stack">
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Your name" />
+
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="Email address" />
+
+            <label for="product">Product</label>
+            <select id="product">
+              <option>General</option>
+              <option>Concept 01</option>
+              <option>Concept 02</option>
+              <option>Concept 03</option>
+            </select>
+
+            <label class="checkbox-row" for="notes">
+              <input id="notes" type="checkbox" checked />
+              Receive studio notes and stories
+            </label>
+
+            <button class="cta" type="button">Join waitlist</button>
+            <p class="note">Opt out anytime.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

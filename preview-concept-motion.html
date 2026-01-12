@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kalstudio concept motion preview</title>
+    <style>
+      @font-face {
+        font-family: "Messina Sans";
+        src: url("assets/fonts/MessinaSans-Light.woff2") format("woff2"),
+          url("assets/fonts/MessinaSans-Light.woff") format("woff");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Messina Sans";
+        src: url("assets/fonts/MessinaSans-Regular.woff2") format("woff2"),
+          url("assets/fonts/MessinaSans-Regular.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root {
+        --bg: #f7f0e7;
+        --ink: #1b140f;
+        --muted: #6b5f52;
+        --line: #e5d6c5;
+        --card: #fffaf4;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Messina Sans", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.6;
+        font-size: 16px;
+      }
+
+      h1,
+      h2,
+      p,
+      button,
+      label {
+        font: inherit;
+        letter-spacing: normal;
+        text-transform: none;
+      }
+
+      .wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+        display: grid;
+        gap: 28px;
+      }
+
+      header h1 {
+        margin: 0;
+        font-weight: 400;
+      }
+
+      header p {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        color: var(--muted);
+      }
+
+      .controls label {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 0.95rem;
+      }
+
+      .concept-list {
+        display: grid;
+        gap: 24px;
+      }
+
+      .concept-card {
+        border-top: 1px solid var(--line);
+        padding-top: 16px;
+      }
+
+      .concept-toggle {
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--muted);
+        text-decoration: underline;
+        text-decoration-color: rgba(27, 20, 15, 0.35);
+        text-underline-offset: 0.25em;
+        cursor: pointer;
+      }
+
+      .concept-caption {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      .concept-body {
+        display: grid;
+        grid-template-columns: 1.4fr 0.8fr;
+        gap: 24px;
+        margin-top: 18px;
+        background: #fffaf4;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px;
+      }
+
+      .mock-image {
+        background: linear-gradient(135deg, #e7dccf, #f7f2eb);
+        border-radius: 16px;
+        min-height: 220px;
+      }
+
+      .mock-specs {
+        display: grid;
+        gap: 8px;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      .mock-specs span {
+        color: var(--ink);
+      }
+
+      .is-collapsed .concept-body {
+        pointer-events: none;
+      }
+
+      /* Motion style A: soft fade + translate */
+      .motion-soft .concept-body {
+        opacity: 0;
+        transform: translateY(-8px);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.45s ease;
+      }
+
+      .motion-soft .concept-card.is-open .concept-body {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 900px;
+      }
+
+      /* Motion style A2: soft fade + staggered content */
+      .motion-soft-stagger .concept-body {
+        opacity: 0;
+        transform: translateY(-8px);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.45s ease;
+      }
+
+      .motion-soft-stagger .concept-card.is-open .concept-body {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 900px;
+      }
+
+      .motion-soft-stagger .concept-body > * {
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 0.35s ease, transform 0.45s ease;
+      }
+
+      .motion-soft-stagger .concept-card.is-open .concept-body > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .motion-soft-stagger .concept-card.is-open .concept-body > *:nth-child(2) {
+        transition-delay: 0.08s;
+      }
+
+      /* Motion style B: accordion reveal */
+      .motion-accordion .concept-body {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+      }
+
+      .motion-accordion .concept-card.is-open .concept-body {
+        max-height: 900px;
+        opacity: 1;
+      }
+
+      /* Motion style C: clip-path reveal */
+      .motion-clip .concept-body {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+        transition: clip-path 0.5s ease, opacity 0.25s ease;
+      }
+
+      .motion-clip .concept-card.is-open .concept-body {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+      }
+
+      @media (max-width: 720px) {
+        .concept-body {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap motion-soft" id="preview-root">
+      <header>
+        <h1>Concept motion previews</h1>
+        <p>Switch between animation styles and click a concept to see the reveal/close motion.</p>
+      </header>
+
+      <div class="controls">
+        <span>Motion:</span>
+        <label><input type="radio" name="motion" value="motion-soft" checked /> Soft fade</label>
+        <label><input type="radio" name="motion" value="motion-soft-stagger" /> Soft fade + stagger</label>
+        <label><input type="radio" name="motion" value="motion-accordion" /> Accordion</label>
+        <label><input type="radio" name="motion" value="motion-clip" /> Clip reveal</label>
+      </div>
+
+      <section class="concept-list">
+        <article class="concept-card" data-id="c1">
+          <button class="concept-toggle" type="button">Concept 01</button>
+          <p class="concept-caption">A coffee table formed from a single sheet of brushed stainless steel.</p>
+          <div class="concept-body">
+            <div class="mock-image"></div>
+            <div class="mock-specs">
+              <div><span>Material</span> — Brushed stainless steel</div>
+              <div><span>Finish</span> — Matte brushed</div>
+              <div><span>Dimensions</span> — 1200 W × 600 D × 350 H mm</div>
+              <div><span>Production</span> — Made to order</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="concept-card" data-id="c2">
+          <button class="concept-toggle" type="button">Concept 02</button>
+          <p class="concept-caption">A mid-century inspired shoe rack designed for everyday use.</p>
+          <div class="concept-body">
+            <div class="mock-image"></div>
+            <div class="mock-specs">
+              <div><span>Material</span> — Powder-coated steel</div>
+              <div><span>Finish</span> — Warm neutral</div>
+              <div><span>Dimensions</span> — 900 W × 320 D × 380 H mm</div>
+              <div><span>Production</span> — Small run</div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const root = document.getElementById("preview-root");
+      const radios = document.querySelectorAll("input[name='motion']");
+      const toggles = document.querySelectorAll(".concept-toggle");
+
+      radios.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          root.classList.remove(
+            "motion-soft",
+            "motion-soft-stagger",
+            "motion-accordion",
+            "motion-clip"
+          );
+          root.classList.add(radio.value);
+        });
+      });
+
+      toggles.forEach((toggle) => {
+        toggle.addEventListener("click", () => {
+          const card = toggle.closest(".concept-card");
+          card.classList.toggle("is-open");
+        });
+      });
+    </script>
+  </body>
+</html>

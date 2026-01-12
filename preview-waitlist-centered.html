@@ -113,6 +113,15 @@
         font-weight: 300;
       }
 
+      .panel-text {
+        text-align: center;
+      }
+
+      .panel-text p {
+        margin: 6px auto 0;
+        max-width: 440px;
+      }
+
       .form-stack {
         display: grid;
         gap: 12px;
@@ -121,6 +130,7 @@
       label {
         font-size: 0.85rem;
         color: var(--muted);
+        text-align: left;
       }
 
       input,
@@ -143,7 +153,7 @@
         text-decoration-color: rgba(27, 20, 15, 0.35);
         text-underline-offset: 0.25em;
         cursor: pointer;
-        justify-self: start;
+        justify-self: center;
       }
 
       .cta:hover {
@@ -154,56 +164,36 @@
       .note {
         font-size: 0.9rem;
         color: var(--muted);
+        text-align: center;
       }
 
-      .inline-row {
+      .fields-row {
         display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 16px;
-        align-items: center;
+        gap: 10px;
       }
 
-      .minimal-panel {
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.65);
-        padding: 18px 24px;
-        display: grid;
-        gap: 12px;
+      .divider {
+        height: 1px;
+        background: var(--line);
+        margin: 8px 0 2px;
       }
 
-      .minimal-panel p {
-        margin: 0;
-        color: var(--muted);
-        font-weight: 300;
+      .compact {
+        padding: 22px 26px;
       }
 
-      .split-panel {
-        border: 1px solid var(--line);
-        border-radius: 22px;
-        background: #fff7ed;
-        padding: 26px;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-        gap: 22px;
+      .card-shadow {
+        box-shadow: 0 18px 40px rgba(27, 20, 15, 0.08);
       }
 
-      .split-panel h3 {
-        margin: 0 0 8px;
-        font-weight: 300;
-        font-size: 1.125rem;
-      }
-
-      .split-panel p {
-        margin: 0;
-        color: var(--muted);
-        font-weight: 300;
+      .soft-outline {
+        border-color: rgba(27, 20, 15, 0.18);
+        background: rgba(255, 255, 255, 0.75);
       }
 
       @media (max-width: 720px) {
-        .inline-row,
-        .split-panel {
-          grid-template-columns: 1fr;
+        .panel-text p {
+          max-width: none;
         }
       }
     </style>
@@ -212,63 +202,105 @@
     <main class="wrap">
       <header>
         <h1>Centered waitlist previews</h1>
-        <p>Three centered options with different levels of emphasis and form density.</p>
+        <p>Header stays outside the container. Text inside the card is centered, fields stay left-aligned.</p>
       </header>
 
       <section class="preview-block">
-        <h2>Option 1: centered card, stacked form</h2>
-        <div class="centered panel">
+        <h2>Option 1A: classic centered card</h2>
+        <div class="centered">
           <h3>Waitlist</h3>
-          <p>Join the list for early access to limited releases and new concepts.</p>
-          <form class="form-stack">
-            <label for="name-a">Name</label>
-            <input id="name-a" type="text" placeholder="Your name" />
-            <label for="email-a">Email</label>
-            <input id="email-a" type="email" placeholder="Email address" />
-            <label for="product-a">Product</label>
-            <select id="product-a">
-              <option>General</option>
-              <option>Concept 01</option>
-              <option>Concept 02</option>
-              <option>Concept 03</option>
-            </select>
-            <button class="cta" type="button">Join waitlist</button>
-            <p class="note">Occasional updates. No noise. Opt out anytime.</p>
-          </form>
-        </div>
-      </section>
-
-      <section class="preview-block">
-        <h2>Option 2: centered card, split copy + form</h2>
-        <div class="centered split-panel">
-          <div>
-            <h3>Waitlist</h3>
-            <p>Short notes on process and first access to future drops.</p>
-            <p class="note">One email at a time. Leave anytime.</p>
+          <div class="panel">
+            <div class="panel-text">
+              <p>Join the list for early access to limited releases and new concepts.</p>
+            </div>
+            <form class="form-stack">
+              <div class="fields-row">
+                <label for="name-a">Name</label>
+                <input id="name-a" type="text" placeholder="Your name" />
+              </div>
+              <div class="fields-row">
+                <label for="email-a">Email</label>
+                <input id="email-a" type="email" placeholder="Email address" />
+              </div>
+              <div class="fields-row">
+                <label for="product-a">Product</label>
+                <select id="product-a">
+                  <option>General</option>
+                  <option>Concept 01</option>
+                  <option>Concept 02</option>
+                  <option>Concept 03</option>
+                </select>
+              </div>
+              <button class="cta" type="button">Join waitlist</button>
+              <p class="note">Occasional updates. No noise. Opt out anytime.</p>
+            </form>
           </div>
-          <form class="form-stack">
-            <label for="email-b">Email</label>
-            <input id="email-b" type="email" placeholder="Email address" />
-            <label for="product-b">Product</label>
-            <select id="product-b">
-              <option>General</option>
-              <option>Concept 01</option>
-              <option>Concept 02</option>
-              <option>Concept 03</option>
-            </select>
-            <button class="cta" type="button">Join waitlist</button>
-          </form>
         </div>
       </section>
 
       <section class="preview-block">
-        <h2>Option 3: centered minimal capsule</h2>
-        <div class="centered minimal-panel">
+        <h2>Option 1B: soft outline + divider</h2>
+        <div class="centered">
           <h3>Waitlist</h3>
-          <p>Receive first access to upcoming objects and small runs.</p>
-          <div class="inline-row">
-            <input type="email" placeholder="Email address" />
-            <button class="cta" type="button">Join waitlist</button>
+          <div class="panel soft-outline">
+            <div class="panel-text">
+              <p>A short note on process and first access to future drops.</p>
+            </div>
+            <div class="divider"></div>
+            <form class="form-stack">
+              <div class="fields-row">
+                <label for="name-b">Name</label>
+                <input id="name-b" type="text" placeholder="Your name" />
+              </div>
+              <div class="fields-row">
+                <label for="email-b">Email</label>
+                <input id="email-b" type="email" placeholder="Email address" />
+              </div>
+              <div class="fields-row">
+                <label for="product-b">Product</label>
+                <select id="product-b">
+                  <option>General</option>
+                  <option>Concept 01</option>
+                  <option>Concept 02</option>
+                  <option>Concept 03</option>
+                </select>
+              </div>
+              <button class="cta" type="button">Join waitlist</button>
+              <p class="note">One email at a time. Leave anytime.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="preview-block">
+        <h2>Option 1C: compact card + subtle shadow</h2>
+        <div class="centered">
+          <h3>Waitlist</h3>
+          <div class="panel compact card-shadow">
+            <div class="panel-text">
+              <p>Receive first access to upcoming objects and small runs.</p>
+            </div>
+            <form class="form-stack">
+              <div class="fields-row">
+                <label for="name-c">Name</label>
+                <input id="name-c" type="text" placeholder="Your name" />
+              </div>
+              <div class="fields-row">
+                <label for="email-c">Email</label>
+                <input id="email-c" type="email" placeholder="Email address" />
+              </div>
+              <div class="fields-row">
+                <label for="product-c">Product</label>
+                <select id="product-c">
+                  <option>General</option>
+                  <option>Concept 01</option>
+                  <option>Concept 02</option>
+                  <option>Concept 03</option>
+                </select>
+              </div>
+              <button class="cta" type="button">Join waitlist</button>
+              <p class="note">Low frequency, high signal.</p>
+            </form>
           </div>
         </div>
       </section>

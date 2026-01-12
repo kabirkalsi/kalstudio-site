@@ -9,14 +9,33 @@
       content="Kalstudio is a creative studio building limited-run concepts. Join the waitlist for future drops."
     />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .logo {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .logo-image {
+        height: 3rem;
+        width: auto;
+        display: block;
+        background: transparent;
+      }
+    </style>
   </head>
   <body>
     <div class="page">
       <header class="site-header">
-        <a class="logo" href="#top">Kalstudio</a>
+        <a class="logo" href="#top">
+          <img
+            class="logo-image"
+            src="/Users/kabirkalsi/Documents/KALSTUDIO/logofinal.png"
+            alt="Kalstudio"
+          />
+        </a>
         <nav class="nav">
+          <a class="btn ghost" href="#about">About</a>
           <a class="btn primary" href="#shop">Shop</a>
-          <a class="btn ghost" href="#waitlist">Stay updated</a>
         </nav>
       </header>
 
@@ -30,17 +49,14 @@
         <section class="shop" id="shop">
           <div class="concept-grid">
             <article class="concept-card" id="concept-01" data-product="concept-01">
-              <div class="concept-head">
-                <button
-                  class="concept-toggle"
-                  type="button"
-                  data-toggle="concept-01"
-                  aria-expanded="false"
-                >
-                  Concept 01
-                </button>
-                <span class="concept-hint">View details</span>
-              </div>
+              <button
+                class="concept-toggle"
+                type="button"
+                data-toggle="concept-01"
+                aria-expanded="false"
+              >
+                Concept 01
+              </button>
               <p class="concept-caption">
                 A coffee table formed from a single sheet of brushed stainless steel.
               </p>
@@ -48,13 +64,10 @@
                 <div class="gallery" data-gallery>
                   <img
                     class="gallery-main"
-                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                    src="assets/images/TT2_process3.jpg"
                     alt="Coffee table render 1"
-                    loading="lazy"
-                    decoding="async"
-                    data-src="assets/images/TT2_process3.jpg"
                   />
-                  <div class="gallery-controls" data-gallery-hint>
+                  <div class="gallery-controls">
                     <button type="button" data-dir="prev">Prev</button>
                     <span>Use ← → for more</span>
                     <button type="button" data-dir="next">Next</button>
@@ -66,12 +79,9 @@
                       data-alt="Coffee table render 1"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/TT2_process3.jpg"
                         alt="Coffee table render 1"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/TT2_process3.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                     <button
@@ -80,12 +90,9 @@
                       data-alt="Coffee table render 2"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/TT2_process2.jpg"
                         alt="Coffee table render 2"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/TT2_process2.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                     <button
@@ -94,12 +101,9 @@
                       data-alt="Coffee table render 3"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/TT2_process.jpg"
                         alt="Coffee table render 3"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/TT2_process.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                   </div>
@@ -114,40 +118,34 @@
                   <div class="spec-row"><span>Notes</span><span>Single sheet folded form</span></div>
                   <div class="concept-action">
                     <a
-                      class="btn waitlist-link"
+                      class="cta-box waitlist-link"
                       href="?product=concept-01#waitlist"
                       data-product-link="concept-01"
                     >
-                      Join the list
+                      Join waitlist
                     </a>
                   </div>
                 </div>
               </div>
             </article>
             <article class="concept-card" id="concept-02" data-product="concept-02">
-              <div class="concept-head">
-                <button
-                  class="concept-toggle"
-                  type="button"
-                  data-toggle="concept-02"
-                  aria-expanded="false"
-                >
-                  Concept 02
-                </button>
-                <span class="concept-hint">View details</span>
-              </div>
+              <button
+                class="concept-toggle"
+                type="button"
+                data-toggle="concept-02"
+                aria-expanded="false"
+              >
+                Concept 02
+              </button>
               <p class="concept-caption">A mid-century inspired shoe rack designed for everyday use.</p>
               <div class="concept-body" data-body="concept-02">
                 <div class="gallery" data-gallery>
                   <img
                     class="gallery-main"
-                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                    src="assets/images/shoe-rack-01.jpg"
                     alt="Shoe rack render 1"
-                    loading="lazy"
-                    decoding="async"
-                    data-src="assets/images/shoe-rack-01.jpg"
                   />
-                  <div class="gallery-controls" data-gallery-hint>
+                  <div class="gallery-controls">
                     <button type="button" data-dir="prev">Prev</button>
                     <span>Use ← → for more</span>
                     <button type="button" data-dir="next">Next</button>
@@ -159,12 +157,9 @@
                       data-alt="Shoe rack render 1"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/shoe-rack-01.jpg"
                         alt="Shoe rack render 1"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/shoe-rack-01.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                     <button
@@ -173,12 +168,9 @@
                       data-alt="Shoe rack render 2"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/shoe-rack-02.jpg"
                         alt="Shoe rack render 2"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/shoe-rack-02.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                     <button
@@ -187,12 +179,9 @@
                       data-alt="Shoe rack render 3"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/shoe-rack-03.jpg"
                         alt="Shoe rack render 3"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/shoe-rack-03.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                   </div>
@@ -207,40 +196,34 @@
                   <div class="spec-row"><span>Notes</span><span>Minimal footprint</span></div>
                   <div class="concept-action">
                     <a
-                      class="btn waitlist-link"
+                      class="cta-box waitlist-link"
                       href="?product=concept-02#waitlist"
                       data-product-link="concept-02"
                     >
-                      Join the list
+                      Join waitlist
                     </a>
                   </div>
                 </div>
               </div>
             </article>
             <article class="concept-card" id="concept-03" data-product="concept-03">
-              <div class="concept-head">
-                <button
-                  class="concept-toggle"
-                  type="button"
-                  data-toggle="concept-03"
-                  aria-expanded="false"
-                >
-                  Concept 03
-                </button>
-                <span class="concept-hint">View details</span>
-              </div>
+              <button
+                class="concept-toggle"
+                type="button"
+                data-toggle="concept-03"
+                aria-expanded="false"
+              >
+                Concept 03
+              </button>
               <p class="concept-caption">A minimal and colorful plant stand.</p>
               <div class="concept-body" data-body="concept-03">
                 <div class="gallery" data-gallery>
                   <img
                     class="gallery-main"
-                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                    src="assets/images/plant-stand-01.jpg"
                     alt="Plant stand render 1"
-                    loading="lazy"
-                    decoding="async"
-                    data-src="assets/images/plant-stand-01.jpg"
                   />
-                  <div class="gallery-controls" data-gallery-hint>
+                  <div class="gallery-controls">
                     <button type="button" data-dir="prev">Prev</button>
                     <span>Use ← → for more</span>
                     <button type="button" data-dir="next">Next</button>
@@ -252,12 +235,9 @@
                       data-alt="Plant stand render 1"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/plant-stand-01.jpg"
                         alt="Plant stand render 1"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/plant-stand-01.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                     <button
@@ -266,12 +246,9 @@
                       data-alt="Plant stand render 2"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/plant-stand-02.jpg"
                         alt="Plant stand render 2"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/plant-stand-02.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                     <button
@@ -280,12 +257,9 @@
                       data-alt="Plant stand render 3"
                     >
                       <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        src="assets/images/plant-stand-03.jpg"
                         alt="Plant stand render 3"
                         loading="lazy"
-                        decoding="async"
-                        data-src="assets/images/plant-stand-03.jpg"
-                        fetchpriority="low"
                       />
                     </button>
                   </div>
@@ -300,11 +274,11 @@
                   <div class="spec-row"><span>Notes</span><span>Minimal footprint</span></div>
                   <div class="concept-action">
                     <a
-                      class="btn waitlist-link"
+                      class="cta-box waitlist-link"
                       href="?product=concept-03#waitlist"
                       data-product-link="concept-03"
                     >
-                      Join the list
+                      Join waitlist
                     </a>
                   </div>
                 </div>
@@ -373,7 +347,6 @@
                 Concept 03
               </label>
             </div>
-            <div class="selected-count" id="selected-count">Selected: 1</div>
 
             <button class="btn primary" type="submit">Join the list</button>
             <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
@@ -382,15 +355,10 @@
       </main>
 
       <footer class="site-footer">
-        <div class="footer-updated">
-          <span>Last updated</span>
-          <span class="footer-dot" aria-hidden="true"></span>
-          <strong>Jan 2026</strong>
-        </div>
         <p>Copyright 2025 Kalstudio</p>
         <div class="footer-links">
+          <a href="#about">About</a>
           <a href="#shop">Shop</a>
-          <a href="#waitlist">Stay updated</a>
           <a href="https://www.tiktok.com/@bykalstudio" target="_blank" rel="noreferrer">
             TikTok
           </a>

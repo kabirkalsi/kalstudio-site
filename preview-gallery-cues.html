@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kalstudio gallery cue previews</title>
+    <style>
+      @font-face {
+        font-family: "Messina Sans";
+        src: url("assets/fonts/MessinaSans-Light.woff2") format("woff2"),
+          url("assets/fonts/MessinaSans-Light.woff") format("woff");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Messina Sans";
+        src: url("assets/fonts/MessinaSans-Regular.woff2") format("woff2"),
+          url("assets/fonts/MessinaSans-Regular.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root {
+        --bg: #f7f0e7;
+        --ink: #1b140f;
+        --muted: #6b5f52;
+        --line: #e5d6c5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Messina Sans", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.6;
+        font-size: 16px;
+        padding: 48px 24px;
+      }
+
+      h1,
+      h2,
+      p,
+      button,
+      span {
+        font: inherit;
+        letter-spacing: normal;
+        text-transform: none;
+      }
+
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        display: grid;
+        gap: 24px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.5);
+        display: grid;
+        gap: 12px;
+      }
+
+      .concept-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .concept-toggle {
+        background: none;
+        border: none;
+        padding: 0;
+        text-decoration: underline;
+        text-decoration-color: rgba(27, 20, 15, 0.35);
+        text-underline-offset: 0.2em;
+        cursor: pointer;
+      }
+
+      .concept-toggle.is-open {
+        text-decoration-color: rgba(27, 20, 15, 0.8);
+      }
+
+      .chevron {
+        width: 12px;
+        height: 12px;
+        border-right: 1.5px solid rgba(27, 20, 15, 0.55);
+        border-bottom: 1.5px solid rgba(27, 20, 15, 0.55);
+        transform: rotate(45deg);
+        transition: transform 0.3s ease;
+      }
+
+      .is-open + .chevron {
+        transform: rotate(-135deg);
+      }
+
+      .gallery-controls {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        color: var(--muted);
+      }
+
+      .gallery-controls span {
+        font-size: 0.9rem;
+      }
+
+      .gallery-controls.is-dim span {
+        opacity: 0.4;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="card">
+        <h1>Gallery cue previews</h1>
+        <p>Compare an active-only hint and a chevron open state cue.</p>
+      </section>
+
+      <section class="card">
+        <h2>Option 1 — Active gallery hint</h2>
+        <div class="gallery-controls">
+          <button type="button">Prev</button>
+          <span>Use ← → for more</span>
+          <button type="button">Next</button>
+        </div>
+        <div class="gallery-controls is-dim">
+          <button type="button">Prev</button>
+          <span>Use ← → for more</span>
+          <button type="button">Next</button>
+        </div>
+        <p>Top row = active gallery, bottom row = inactive hint dimmed.</p>
+      </section>
+
+      <section class="card">
+        <h2>Option 2 — Chevron open state</h2>
+        <div class="concept-head">
+          <button class="concept-toggle is-open" type="button">Concept 01</button>
+          <span class="chevron" aria-hidden="true"></span>
+        </div>
+        <div class="concept-head">
+          <button class="concept-toggle" type="button">Concept 02</button>
+          <span class="chevron" aria-hidden="true"></span>
+        </div>
+        <p>Chevron rotates when open for a subtle state cue.</p>
+      </section>
+    </main>
+  </body>
+</html>
