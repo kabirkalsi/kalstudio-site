@@ -116,6 +116,13 @@
         gap: 10px;
       }
 
+      .concept-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
       .concept-head {
         display: flex;
         align-items: baseline;
@@ -146,35 +153,50 @@
         font-weight: 300;
       }
 
-      .concept-row {
-        display: grid;
-        grid-template-columns: 160px 1fr;
-        gap: 20px;
-        align-items: center;
-      }
-
-      .thumb {
+      .hover-thumb {
+        position: absolute;
+        left: 0;
+        top: 0;
         width: 160px;
         height: 120px;
         border-radius: 16px;
         border: 1px solid var(--line);
         object-fit: cover;
         background: #f3e8dc;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        pointer-events: none;
+      }
+
+      .concept-row:hover .hover-thumb,
+      .concept-row:focus-within .hover-thumb {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .concept-row:hover,
+      .concept-row:focus-within {
+        padding-left: 180px;
       }
 
       @media (max-width: 860px) {
-        .concept-row {
-          grid-template-columns: 1fr;
-        }
-
-        .thumb {
-          width: 100%;
-          height: 180px;
-        }
-
         .site-header {
           flex-direction: column;
           align-items: flex-start;
+        }
+
+        .concept-row:hover,
+        .concept-row:focus-within {
+          padding-left: 0;
+        }
+
+        .hover-thumb {
+          position: static;
+          width: 100%;
+          height: 180px;
+          opacity: 1;
+          transform: none;
         }
       }
     </style>
@@ -182,8 +204,8 @@
   <body>
     <main class="wrap">
       <section>
-        <h1>Concept preview option</h1>
-        <p>Option 1 with larger thumbnails for faster scanning.</p>
+        <h1>Progressive thumbnail reveal</h1>
+        <p>Hover or focus a concept to reveal the image, keeping the list minimal by default.</p>
       </section>
 
       <section class="layout-card">
@@ -201,40 +223,34 @@
         </div>
         <article class="concept-card">
           <div class="concept-row">
-            <img class="thumb" src="assets/images/TT2_process3.jpg" alt="Coffee table preview" />
-            <div>
-              <div class="concept-head">
-                <button class="concept-toggle" type="button">Concept 01</button>
-                <span class="concept-hint">View details</span>
-              </div>
-              <p class="concept-caption">
-                A coffee table formed from a single sheet of brushed stainless steel.
-              </p>
+            <img class="hover-thumb" src="assets/images/TT2_process3.jpg" alt="Coffee table preview" />
+            <div class="concept-head">
+              <button class="concept-toggle" type="button">Concept 01</button>
+              <span class="concept-hint">View details</span>
             </div>
+            <p class="concept-caption">
+              A coffee table formed from a single sheet of brushed stainless steel.
+            </p>
           </div>
         </article>
         <article class="concept-card">
           <div class="concept-row">
-            <img class="thumb" src="assets/images/shoe-rack-01.jpg" alt="Shoe rack preview" />
-            <div>
-              <div class="concept-head">
-                <button class="concept-toggle" type="button">Concept 02</button>
-                <span class="concept-hint">View details</span>
-              </div>
-              <p class="concept-caption">A mid-century inspired shoe rack designed for everyday use.</p>
+            <img class="hover-thumb" src="assets/images/shoe-rack-01.jpg" alt="Shoe rack preview" />
+            <div class="concept-head">
+              <button class="concept-toggle" type="button">Concept 02</button>
+              <span class="concept-hint">View details</span>
             </div>
+            <p class="concept-caption">A mid-century inspired shoe rack designed for everyday use.</p>
           </div>
         </article>
         <article class="concept-card">
           <div class="concept-row">
-            <img class="thumb" src="assets/images/plant-stand-01.jpg" alt="Plant stand preview" />
-            <div>
-              <div class="concept-head">
-                <button class="concept-toggle" type="button">Concept 03</button>
-                <span class="concept-hint">View details</span>
-              </div>
-              <p class="concept-caption">A minimal and colorful plant stand.</p>
+            <img class="hover-thumb" src="assets/images/plant-stand-01.jpg" alt="Plant stand preview" />
+            <div class="concept-head">
+              <button class="concept-toggle" type="button">Concept 03</button>
+              <span class="concept-hint">View details</span>
             </div>
+            <p class="concept-caption">A minimal and colorful plant stand.</p>
           </div>
         </article>
       </section>

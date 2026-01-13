@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kalstudio about spacing preview</title>
+    <style>
+      @font-face {
+        font-family: "Messina Sans";
+        src: url("assets/fonts/MessinaSans-Light.woff2") format("woff2"),
+          url("assets/fonts/MessinaSans-Light.woff") format("woff");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Messina Sans";
+        src: url("assets/fonts/MessinaSans-Regular.woff2") format("woff2"),
+          url("assets/fonts/MessinaSans-Regular.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root {
+        --bg: #f7f0e7;
+        --ink: #1b140f;
+        --muted: #6b5f52;
+        --line: #e5d6c5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Messina Sans", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.6;
+        font-size: 16px;
+        padding: 48px 24px 80px;
+      }
+
+      h1,
+      h2,
+      p,
+      a {
+        font: inherit;
+        letter-spacing: normal;
+        text-transform: none;
+      }
+
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        display: grid;
+        gap: 28px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: #fffaf4;
+        padding: 24px;
+        display: grid;
+        gap: 16px;
+      }
+
+      .about {
+        text-align: center;
+        color: var(--muted);
+        font-weight: 300;
+        display: grid;
+        gap: 10px;
+      }
+
+      .about.tight {
+        gap: 6px;
+      }
+
+      .about p {
+        margin: 0 auto;
+        max-width: 720px;
+      }
+
+      .about-line {
+        white-space: nowrap;
+      }
+
+      .about-cta {
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 640px) {
+        .about-line {
+          white-space: normal;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="card">
+        <h1>About spacing preview</h1>
+        <p>Compare the default spacing vs. a tighter block.</p>
+      </section>
+
+      <section class="card">
+        <h2>Current spacing</h2>
+        <div class="about">
+          <p class="about-line">Kalstudio is an independent New York studio designing sheet-metal objects and furniture.</p>
+          <p>Made to order in small runs, with select concepts available for customization.</p>
+          <p class="about-cta">Join the list for early access.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Tighter spacing</h2>
+        <div class="about tight">
+          <p class="about-line">Kalstudio is an independent New York studio designing sheet-metal objects and furniture.</p>
+          <p>Made to order in small runs, with select concepts available for customization.</p>
+          <p class="about-cta">Join the list for early access.</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

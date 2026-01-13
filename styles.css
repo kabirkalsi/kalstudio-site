@@ -112,6 +112,12 @@ footer {
   letter-spacing: 0.02em;
 }
 
+.logo img {
+  height: 1.6rem;
+  width: auto;
+  display: block;
+}
+
 .nav {
   display: flex;
   gap: 12px;
@@ -338,6 +344,8 @@ section {
   padding-top: 24px;
   padding-bottom: 40px;
   text-align: center;
+  display: grid;
+  gap: 0;
 }
 
 .about p {
@@ -345,6 +353,15 @@ section {
   max-width: 720px;
   font-weight: 300;
   color: var(--muted);
+}
+
+.about-cta {
+  font-size: 0.9rem;
+}
+
+
+.about-line {
+  white-space: nowrap;
 }
 
 .about-card {
@@ -382,6 +399,27 @@ section {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
+}
+
+.concept-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.concept-thumb {
+  width: 160px;
+  height: 120px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+  background: #f3e8dc;
+}
+
+.concept-text {
+  display: grid;
+  gap: 8px;
 }
 
 .concept-hint {
@@ -473,7 +511,7 @@ section {
   width: 100%;
   aspect-ratio: 4 / 3;
   max-height: 520px;
-  object-fit: contain;
+  object-fit: cover;
   background: #f3e8dc;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -503,7 +541,7 @@ section {
 
 .gallery-thumbs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -554,6 +592,7 @@ section {
 
 .concept-action .btn {
   color: var(--muted);
+  font-weight: 400;
 }
 
 
@@ -626,6 +665,21 @@ section {
   display: none;
 }
 
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.hp-field input {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+}
+
 label {
   font-size: 0.85rem;
   text-transform: none;
@@ -659,8 +713,10 @@ select:focus {
 .form-status {
   margin: 6px 0 0;
   min-height: 20px;
-  font-size: 0.95rem;
-  color: var(--accent);
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 300;
+  text-align: center;
 }
 
 .newsletter {
@@ -717,6 +773,18 @@ select:focus {
   gap: 16px;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.footer-contact {
+  margin: 0;
+  color: var(--muted);
+}
+
+.footer-contact a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(27, 20, 15, 0.35);
+  text-underline-offset: 0.25em;
 }
 
 .footer-updated {
@@ -800,10 +868,50 @@ body * {
     padding: 32px 18px 50px;
   }
 
+  .site-header {
+    align-items: center;
+    text-align: center;
+  }
+
+  .nav {
+    justify-content: center;
+  }
+
+  .about-line {
+    white-space: normal;
+  }
+
+  .concept-row {
+    grid-template-columns: 1fr;
+  }
+
+  .concept-thumb {
+    width: 100%;
+    height: 180px;
+  }
+
   .concept-head {
     align-items: flex-start;
     flex-direction: column;
     gap: 6px;
+  }
+
+  .gallery-controls {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .gallery-controls span {
+    flex-basis: 100%;
+    font-size: 0.85rem;
+  }
+
+  .gallery-thumbs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-thumbs img {
+    height: 92px;
   }
 
   .waitlist-intro {

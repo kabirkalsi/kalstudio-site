@@ -1,9 +1,10 @@
-const waitlistEndpoint = "";
+const waitlistEndpoint =
+  "https://script.google.com/macros/s/AKfycbxOSZSKtpuNjGBv6cwxPQVlud6rKh5YY_RqeoCjCUebKK1DAxhqrtqlJgGGcR21Qn1L/exec";
+const waitlistEndpointMode = "no-cors";
 
 const productLabels = {
   "concept-01": "Concept 01",
   "concept-02": "Concept 02",
-  "concept-03": "Concept 03",
 };
 
 const waitlistForm = document.getElementById("waitlist-form");
@@ -91,6 +92,15 @@ function updateSelectedCount() {
   selectedCount.textContent = `Selected: ${selected.length}`;
 }
 
+function resetWaitlistForm() {
+  if (!waitlistForm) {
+    return;
+  }
+  waitlistForm.reset();
+  setSelectedProduct("all", { updateUrl: true });
+  updateSelectedCount();
+}
+
 const params = new URLSearchParams(window.location.search);
 const initialProduct = params.get("product");
 
@@ -152,50 +162,30 @@ if (waitlistForm) {
     }
 
     const formData = new FormData(waitlistForm);
-    const payload = {};
-    formData.forEach((value, key) => {
-      if (payload[key] === undefined) {
-        payload[key] = value;
-      } else if (Array.isArray(payload[key])) {
-        payload[key].push(value);
-      } else {
-        payload[key] = [payload[key], value];
-      }
-    });
+    const successMessage = "Thank you! You're on the list.";
 
     if (!waitlistEndpoint) {
       if (formStatus) {
-        formStatus.textContent =
-          "Thanks! Add a waitlist endpoint in script.js to capture submissions.";
+        formStatus.textContent = successMessage;
       }
-      waitlistForm.reset();
-      setSelectedProduct("all", { updateUrl: true });
-      updateSelectedCount();
+      resetWaitlistForm();
       return;
     }
 
     try {
       if (formStatus) {
-        formStatus.textContent = "Submitting...";
+        formStatus.textContent = successMessage;
       }
+      resetWaitlistForm();
       const response = await fetch(waitlistEndpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+        mode: waitlistEndpointMode,
+        body: formData,
       });
 
-      if (!response.ok) {
+      if (waitlistEndpointMode !== "no-cors" && !response.ok) {
         throw new Error("Request failed");
       }
-
-      if (formStatus) {
-        formStatus.textContent = "You are on the list.";
-      }
-      waitlistForm.reset();
-      setSelectedProduct("all", { updateUrl: true });
-      updateSelectedCount();
     } catch (error) {
       if (formStatus) {
         formStatus.textContent = "Something went wrong. Please try again.";
@@ -206,7 +196,9 @@ if (waitlistForm) {
 
 function setupGallery(gallery) {
   const main = gallery.querySelector(".gallery-main");
-  const buttons = Array.from(gallery.querySelectorAll("[data-src]"));
+  const buttons = Array.from(
+    gallery.querySelectorAll(".gallery-thumbs button[data-src]")
+  );
   const thumbs = Array.from(gallery.querySelectorAll(".gallery-thumbs img"));
   let index = 0;
 
