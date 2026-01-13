@@ -887,7 +887,9 @@ body * {
 
   .concept-thumb {
     width: 100%;
-    height: 180px;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
   }
 
   .concept-head {
