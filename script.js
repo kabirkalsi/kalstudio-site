@@ -2,156 +2,35 @@ const waitlistEndpoint =
   "https://script.google.com/macros/s/AKfycbxOSZSKtpuNjGBv6cwxPQVlud6rKh5YY_RqeoCjCUebKK1DAxhqrtqlJgGGcR21Qn1L/exec";
 const waitlistEndpointMode = "no-cors";
 
-const productLabels = {
-  "concept-01": "Concept 01",
-  "concept-02": "Concept 02",
-};
-
 const waitlistForm = document.getElementById("waitlist-form");
-const productCheckboxes = Array.from(
-  document.querySelectorAll('input[name="products"]')
-);
-const allProductsCheckbox = document.getElementById("product-all");
-const selectedCount = document.getElementById("selected-count");
 const formStatus = document.getElementById("form-status");
 const waitlistTitle = document.getElementById("waitlist-title");
 const conceptCards = document.querySelectorAll(".concept-card");
 const waitlistLinks = document.querySelectorAll(".waitlist-link");
 const waitlistSection = document.getElementById("waitlist");
 const conceptToggles = document.querySelectorAll("[data-toggle]");
+const conceptRows = document.querySelectorAll(".concept-row");
 const galleries = new Map();
 let activeGalleryState = null;
 let galleryHintHidden = false;
-
-function updateTitle(product) {
-  if (!waitlistTitle) {
-    return;
-  }
-  waitlistTitle.textContent = "Stay Updated";
-}
-
-function highlightCard(product) {
-  conceptCards.forEach((card) => {
-    if (card.dataset.product === product) {
-      card.classList.add("is-selected");
-    } else {
-      card.classList.remove("is-selected");
-    }
-  });
-}
-
-function updateUrl(product) {
-  const url = new URL(window.location.href);
-  if (product && product !== "all") {
-    url.searchParams.set("product", product);
-  } else {
-    url.searchParams.delete("product");
-  }
-  history.replaceState({}, "", url);
-}
-
-function setSelectedProduct(product, options = {}) {
-  const normalized = productLabels[product] ? product : "all";
-  if (productCheckboxes.length) {
-    if (normalized === "all") {
-      if (allProductsCheckbox) {
-        allProductsCheckbox.checked = true;
-      }
-      productCheckboxes.forEach((checkbox) => {
-        if (checkbox !== allProductsCheckbox) {
-          checkbox.checked = false;
-        }
-      });
-    } else {
-      if (allProductsCheckbox) {
-        allProductsCheckbox.checked = false;
-      }
-      productCheckboxes.forEach((checkbox) => {
-        checkbox.checked = checkbox.value === normalized;
-      });
-    }
-  }
-  updateTitle(normalized);
-  highlightCard(normalized);
-  if (options.updateUrl) {
-    updateUrl(normalized);
-  }
-}
-
-function updateSelectedCount() {
-  if (!selectedCount || productCheckboxes.length === 0) {
-    return;
-  }
-  const selected = productCheckboxes.filter(
-    (checkbox) => checkbox !== allProductsCheckbox && checkbox.checked
-  );
-  if (selected.length === 0) {
-    selectedCount.textContent = "";
-    return;
-  }
-  selectedCount.textContent = `Selected: ${selected.length}`;
-}
 
 function resetWaitlistForm() {
   if (!waitlistForm) {
     return;
   }
   waitlistForm.reset();
-  setSelectedProduct("all", { updateUrl: true });
-  updateSelectedCount();
 }
-
-const params = new URLSearchParams(window.location.search);
-const initialProduct = params.get("product");
-
-if (initialProduct) {
-  setSelectedProduct(initialProduct);
-  if (!window.location.hash && waitlistSection) {
-    requestAnimationFrame(() => {
-      waitlistSection.scrollIntoView({ behavior: "smooth" });
-    });
-  }
-}
-
-updateSelectedCount();
 
 waitlistLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
-    event.preventDefault();
-    const product = link.dataset.productLink;
-    setSelectedProduct(product, { updateUrl: true });
     if (waitlistSection) {
-      const url = new URL(window.location.href);
-      url.hash = "waitlist";
-      history.replaceState({}, "", url);
       waitlistSection.scrollIntoView({ behavior: "smooth" });
     }
   });
 });
 
-if (productCheckboxes.length) {
-  productCheckboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", () => {
-      if (checkbox === allProductsCheckbox && checkbox.checked) {
-        productCheckboxes.forEach((item) => {
-          if (item !== allProductsCheckbox) {
-            item.checked = false;
-          }
-        });
-      } else if (checkbox !== allProductsCheckbox) {
-        if (checkbox.checked && allProductsCheckbox) {
-          allProductsCheckbox.checked = false;
-        }
-        const anySelected = productCheckboxes.some(
-          (item) => item !== allProductsCheckbox && item.checked
-        );
-        if (!anySelected && allProductsCheckbox) {
-          allProductsCheckbox.checked = true;
-        }
-      }
-      updateSelectedCount();
-    });
-  });
+if (waitlistTitle) {
+  waitlistTitle.textContent = "Stay Updated";
 }
 
 if (waitlistForm) {
@@ -280,6 +159,22 @@ conceptToggles.forEach((toggle) => {
         galleryState.show(0);
       }
       activeGalleryState = galleryState || activeGalleryState;
+    }
+  });
+});
+
+conceptRows.forEach((row) => {
+  row.addEventListener("click", (event) => {
+    if (event.target.closest("button, a")) {
+      return;
+    }
+    const card = row.closest(".concept-card");
+    if (!card) {
+      return;
+    }
+    const toggle = card.querySelector(".concept-toggle");
+    if (toggle) {
+      toggle.click();
     }
   });
 });

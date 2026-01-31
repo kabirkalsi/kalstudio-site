@@ -406,6 +406,7 @@ section {
   grid-template-columns: 160px 1fr;
   gap: 20px;
   align-items: center;
+  cursor: pointer;
 }
 
 .concept-thumb {
@@ -584,6 +585,15 @@ section {
   color: var(--ink);
 }
 
+.spec-row.price-row {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.spec-row.price-row span:first-child {
+  color: var(--muted);
+}
+
 .concept-action {
   margin-top: 12px;
   display: flex;
@@ -717,6 +727,12 @@ select:focus {
   color: var(--muted);
   font-weight: 300;
   text-align: center;
+}
+
+.form-status:empty {
+  display: none;
+  margin: 0;
+  min-height: 0;
 }
 
 .newsletter {
