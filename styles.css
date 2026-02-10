@@ -112,6 +112,11 @@ footer {
   letter-spacing: 0.02em;
 }
 
+.wordmark-tight {
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+
 .logo img {
   height: 1.6rem;
   width: auto;
@@ -803,26 +808,6 @@ select:focus {
   text-underline-offset: 0.25em;
 }
 
-.footer-updated {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 0.9rem;
-  width: 100%;
-}
-
-.footer-updated strong {
-  color: var(--ink);
-  font-weight: 400;
-}
-
-.footer-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 999px;
-  background: var(--line);
-}
 
 .footer-links {
   display: flex;
