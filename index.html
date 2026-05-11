@@ -22,14 +22,49 @@
 
       <main id="top">
         <section class="about" id="about" aria-label="About">
-          <p class="about-line">Kalstudio is an independent object and furniture design studio based in New York.</p>
-          <p>Made to order in small runs, with select customization available.</p>
-          <p class="about-cta">Join the list for early access.</p>
+          <p class="intro-kicker">Kalstudio</p>
+          <h1>Furniture and objects, made with intention.</h1>
+          <div class="about-copy">
+            <p>Kalstudio is an independent object and furniture design studio based in New York.</p>
+            <p>Made to order in small runs, with select customization available.</p>
+          </div>
+        </section>
+
+        <section class="waitlist" id="waitlist">
+          <div class="waitlist-copy">
+            <h2 id="waitlist-title">Stay updated</h2>
+            <p>Early access to limited releases and new concepts.</p>
+          </div>
+          <form class="waitlist-form" id="waitlist-form">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Email"
+              autocomplete="email"
+              required
+            />
+
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">Website</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabindex="-1"
+                autocomplete="off"
+              />
+            </div>
+
+            <button class="btn primary" type="submit">Join</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
         </section>
 
         <section class="shop" id="shop">
           <div class="concept-grid">
-            <article class="concept-card" id="concept-01" data-product="concept-01">
+            <article class="concept-card is-open" id="concept-01" data-product="concept-01">
               <div class="concept-row">
                 <img
                   class="concept-thumb"
@@ -44,13 +79,13 @@
                       class="concept-toggle"
                       type="button"
                       data-toggle="concept-01"
-                      aria-expanded="false"
+                      aria-expanded="true"
                     >
                       Concept 01
                     </button>
-                    <span class="concept-hint">View details</span>
+                    <span class="concept-hint">Hide details</span>
                   </div>
-                  <p class="concept-caption">A mid-century inspired shoe rack designed for everyday use.</p>
+                  <p class="concept-caption">A refined mid century modern storage solution</p>
                 </div>
               </div>
               <div class="concept-body" data-body="concept-01">
@@ -63,11 +98,6 @@
                     decoding="async"
                     data-src="assets/images/shoe-rack-thumb.jpg"
                   />
-                  <div class="gallery-controls" data-gallery-hint>
-                    <button type="button" data-dir="prev">Prev</button>
-                    <span>Use ← → for more</span>
-                    <button type="button" data-dir="next">Next</button>
-                  </div>
                   <div class="gallery-thumbs">
                     <button
                       type="button"
@@ -128,15 +158,16 @@
                   </div>
                 </div>
                 <div class="specs">
-                  <div class="spec-row price-row"><span>Price</span><span>$400</span></div>
+                  <div class="spec-row price-row"><span>Price</span><span>TBD</span></div>
                   <div class="spec-row"><span>Material</span><span>Steel alloy</span></div>
                   <div class="spec-row"><span>Finish</span><span>Powder coat</span></div>
                   <div class="spec-row">
                     <span>Dimensions</span><span>900 W × 320 D × 380 H mm</span>
                   </div>
                   <div class="spec-row"><span>Production</span><span>Sheet metal fabrication</span></div>
-                  <div class="spec-row"><span>Lead time</span><span>5–7 weeks</span></div>
-                  <div class="concept-action">
+                  <div class="spec-row"><span>Lead time</span><span>3-5 weeks</span></div>
+                  <div class="spec-row concept-action">
+                    <span></span>
                     <a class="btn buy-link" href="https://buy.stripe.com/4gM28r5Iu96AdXCcLD0Ny00">
                       Buy now
                     </a>
@@ -147,53 +178,30 @@
           </div>
         </section>
 
-        <section class="waitlist" id="waitlist">
-          <div class="section-head">
-            <h2 id="waitlist-title">Stay Updated</h2>
-          </div>
-          <form class="waitlist-form" id="waitlist-form">
-            <p class="waitlist-intro">
-              Join the list for early access to limited releases and new concepts.
-            </p>
-            <label for="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              required
-            />
-
-            <div class="hp-field" aria-hidden="true">
-              <label for="website">Website</label>
-              <input
-                id="website"
-                name="website"
-                type="text"
-                tabindex="-1"
-                autocomplete="off"
-              />
-            </div>
-
-            <button class="btn primary" type="submit">Join the list</button>
-            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-          </form>
-        </section>
       </main>
 
       <footer class="site-footer">
-        <p>Copyright 2026 Kalstudio</p>
-        <p class="footer-contact">
-          Custom inquiries: <a href="mailto:info@kalstudio.co">info@kalstudio.co</a>
-        </p>
-        <div class="footer-links">
+        <div class="footer-brand">
+          <a class="footer-logo wordmark-tight" href="#top">Kalstudio</a>
+          <p>Copyright 2026 Kalstudio</p>
+        </div>
+        <nav class="footer-group" aria-label="Studio">
+          <p>Studio</p>
           <a href="#shop">Shop</a>
           <a href="#waitlist">Stay updated</a>
-          <a href="https://www.tiktok.com/@bykalstudio" target="_blank" rel="noreferrer">
-            TikTok
-          </a>
+        </nav>
+        <div class="footer-group">
+          <p>Contact</p>
+          <a href="mailto:info@kalstudio.co">Custom inquiries</a>
+          <a href="mailto:info@kalstudio.co">info@kalstudio.co</a>
+        </div>
+        <div class="footer-group">
+          <p>Social</p>
           <a href="https://www.instagram.com/bykalstudio" target="_blank" rel="noreferrer">
             Instagram
+          </a>
+          <a href="https://www.tiktok.com/@bykalstudio" target="_blank" rel="noreferrer">
+            TikTok
           </a>
         </div>
       </footer>

@@ -30,7 +30,7 @@ waitlistLinks.forEach((link) => {
 });
 
 if (waitlistTitle) {
-  waitlistTitle.textContent = "Stay Updated";
+  waitlistTitle.textContent = "Stay updated";
 }
 
 if (waitlistForm) {
@@ -129,14 +129,28 @@ function setupGallery(gallery) {
     activeGalleryState = state;
   });
 
-  if (main && !main.src && main.dataset.src) {
-    main.src = main.dataset.src;
-  }
+  show(0);
   galleries.set(gallery, state);
 }
 
 document.querySelectorAll("[data-gallery]").forEach((gallery) => {
   setupGallery(gallery);
+});
+
+conceptCards.forEach((concept) => {
+  if (!concept.classList.contains("is-open")) {
+    return;
+  }
+  const toggle = concept.querySelector(".concept-toggle");
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", "true");
+  }
+  const hint = concept.querySelector(".concept-hint");
+  if (hint) {
+    hint.textContent = "Hide details";
+  }
+  const gallery = concept.querySelector("[data-gallery]");
+  activeGalleryState = galleries.get(gallery) || activeGalleryState;
 });
 
 conceptToggles.forEach((toggle) => {
