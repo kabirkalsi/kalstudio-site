@@ -1,15 +1,17 @@
+window.initKalstudioProduct = function(scope){
+if(scope.dataset.productInitialized)return;scope.dataset.productInitialized='true';
 const waitlistEndpoint =
   "https://script.google.com/macros/s/AKfycbxOSZSKtpuNjGBv6cwxPQVlud6rKh5YY_RqeoCjCUebKK1DAxhqrtqlJgGGcR21Qn1L/exec";
 const waitlistEndpointMode = "no-cors";
 
-const waitlistForm = document.getElementById("waitlist-form");
-const formStatus = document.getElementById("form-status");
-const waitlistTitle = document.getElementById("waitlist-title");
-const conceptCards = document.querySelectorAll(".concept-card");
-const waitlistLinks = document.querySelectorAll(".waitlist-link");
-const waitlistSection = document.getElementById("waitlist");
-const conceptToggles = document.querySelectorAll("[data-toggle]");
-const conceptRows = document.querySelectorAll(".concept-row");
+const waitlistForm = scope.querySelector("#" + "waitlist-form");
+const formStatus = scope.querySelector("#" + "form-status");
+const waitlistTitle = scope.querySelector("#" + "waitlist-title");
+const conceptCards = scope.querySelectorAll(".concept-card");
+const waitlistLinks = scope.querySelectorAll(".waitlist-link");
+const waitlistSection = scope.querySelector("#" + "waitlist");
+const conceptToggles = scope.querySelectorAll("[data-toggle]");
+const conceptRows = scope.querySelectorAll(".concept-row");
 const galleries = new Map();
 let activeGalleryState = null;
 let galleryHintHidden = false;
@@ -36,6 +38,7 @@ if (waitlistTitle) {
 if (waitlistForm) {
   waitlistForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (location.hostname === '127.0.0.1' || location.hostname === 'localhost') {formStatus.textContent='Preview only — your email has not been submitted';return;}
     if (formStatus) {
       formStatus.textContent = "";
     }
@@ -85,8 +88,12 @@ function setupGallery(gallery) {
     if (!main || buttons.length === 0) {
       return;
     }
+    scope.dataset.ghostDirty='true';
     index = (nextIndex + buttons.length) % buttons.length;
     const button = buttons[index];
+    // Keep the browser's responsive candidate selection when changing views.
+    if (button.dataset.srcset) main.srcset = button.dataset.srcset;
+    else main.removeAttribute('srcset');
     main.src = button.dataset.src;
     main.alt = button.dataset.alt || "Concept image";
     thumbs.forEach((thumb) => {
@@ -133,7 +140,7 @@ function setupGallery(gallery) {
   galleries.set(gallery, state);
 }
 
-document.querySelectorAll("[data-gallery]").forEach((gallery) => {
+scope.querySelectorAll("[data-gallery]").forEach((gallery) => {
   setupGallery(gallery);
 });
 
@@ -153,27 +160,67 @@ conceptCards.forEach((concept) => {
   activeGalleryState = galleries.get(gallery) || activeGalleryState;
 });
 
+const detailAnimations = new WeakMap();
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
 conceptToggles.forEach((toggle) => {
   toggle.addEventListener("click", () => {
-    const targetId = toggle.dataset.toggle;
-    const concept = document.getElementById(targetId);
-    if (!concept) {
-      return;
-    }
-    const isOpen = concept.classList.toggle("is-open");
-    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    const hint = concept.querySelector(".concept-hint");
-    if (hint) {
-      hint.textContent = isOpen ? "Hide details" : "View details";
-    }
-    if (isOpen) {
-      const gallery = concept.querySelector("[data-gallery]");
+    const concept = scope.querySelector("#" + toggle.dataset.toggle);
+    if (!concept) return;
+    const body = concept.querySelector('.concept-body');
+    const opening = !concept.classList.contains('is-open');
+    const hint = concept.querySelector('.concept-hint');
+    const label = opening ? 'Hide details' : 'View details';
+
+    // Start from the current frame so a quick reversal has no jump.
+    const startHeight = body.getBoundingClientRect().height;
+    const style = getComputedStyle(body);
+    const startOpacity = Number(style.opacity);
+    const startMargin = parseFloat(style.marginTop) || 0;
+    detailAnimations.get(concept)?.cancel();
+    body.style.height = `${startHeight}px`;
+    body.style.opacity = String(startOpacity);
+    body.style.marginTop = `${startMargin}px`;
+    body.style.overflow = 'hidden';
+    body.style.visibility = 'visible';
+
+    concept.classList.toggle('is-open', opening);
+    toggle.setAttribute('aria-expanded', String(opening));
+    toggle.setAttribute('aria-label', `${label} for ${concept.querySelector('.concept-title')?.textContent.trim() || 'concept'}`);
+    if (hint) hint.textContent = label;
+    body.inert = !opening;
+
+    if (opening) {
+      const gallery = concept.querySelector('[data-gallery]');
       const galleryState = galleries.get(gallery);
-      if (galleryState) {
-        galleryState.show(0);
-      }
+      galleryState?.show(0);
       activeGalleryState = galleryState || activeGalleryState;
     }
+
+    const clear = () => {
+      body.style.height = '';
+      body.style.opacity = '';
+      body.style.marginTop = '';
+      body.style.overflow = '';
+      body.style.visibility = '';
+      detailAnimations.delete(concept);
+    };
+    if (reducedMotion.matches || !body.animate || !concept.closest('.product-pinboard')) {
+      clear();
+      return;
+    }
+
+    const endHeight = opening ? body.scrollHeight : 0;
+    const animation = body.animate([
+      {height:`${startHeight}px`,opacity:startOpacity,marginTop:`${startMargin}px`},
+      {height:`${endHeight}px`,opacity:opening?1:0,marginTop:opening?'24px':'0px'}
+    ], {duration:opening?480:380,easing:'cubic-bezier(.22,.75,.24,1)',fill:'forwards'});
+    detailAnimations.set(concept, animation);
+    animation.onfinish = () => {
+      if (detailAnimations.get(concept) !== animation) return;
+      clear();
+      animation.cancel();
+    };
   });
 });
 
@@ -194,11 +241,12 @@ conceptRows.forEach((row) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (scope.inert || scope.hidden || event.defaultPrevented || event.target.closest("input, textarea, select, [contenteditable], .site-slider")) return;
   if (!activeGalleryState) {
     return;
   }
   if (!galleryHintHidden) {
-    document.querySelectorAll("[data-gallery-hint]").forEach((hint) => {
+    scope.querySelectorAll("[data-gallery-hint]").forEach((hint) => {
       hint.classList.add("is-hidden");
     });
     galleryHintHidden = true;
@@ -212,3 +260,6 @@ document.addEventListener("keydown", (event) => {
     activeGalleryState.prev();
   }
 });
+
+};
+if(document.querySelector('main .concept-card'))window.initKalstudioProduct(document.querySelector('main'));

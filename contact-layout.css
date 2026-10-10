@@ -1,0 +1,87 @@
+/* The Studio contact and Sandbox signup share the same page rhythm. */
+.contact-block{display:grid;grid-template-columns:minmax(220px,1fr) minmax(280px,420px);gap:28px;align-items:center;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.contact-block h2{font-size:1.125rem;font-weight:300;line-height:1.35;margin:0}
+.about:has(+ .studio-inquiries){padding-bottom:47px}
+.about:has(+ .studio-inquiries) .about-copy{display:block;max-width:920px}
+.studio-inquiries{margin-bottom:70px}
+.contact-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px}
+.contact-email{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-size:1rem;font-weight:300;text-decoration:none;white-space:nowrap}
+.contact-email span:first-child{overflow:hidden;text-overflow:ellipsis}
+.contact-email span:last-child{font-size:18px;line-height:1;color:var(--muted)}
+.contact-email:hover{border-color:#b9a99a}
+.contact-email:focus-visible,.contact-linkedin:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.contact-linkedin{white-space:nowrap;font-size:1rem}
+main>.projects.work-study{padding-top:24px;padding-bottom:76px}
+main>.clients{margin:0 auto;padding:22px 0 26px}
+body[data-work=composition] main>.clients{margin-bottom:0}
+main:has(>.studio-inquiries)+.basic-footer{border-top:0;margin-top:35px}
+@media(max-width:980px){.contact-block{grid-template-columns:1fr}.contact-actions{max-width:520px}}
+@media(max-width:640px){.about:has(+ .studio-inquiries){padding-bottom:38px}.studio-inquiries{margin-bottom:56px}.contact-block{gap:18px;padding:20px 0}.contact-actions{grid-template-columns:1fr auto;gap:14px}main>.projects.work-study{padding-bottom:56px}}
+/* Selected clients is a centered final block after the project stories. */
+main>.clients .studio-label{text-align:center}
+
+/* Shared vertical rhythm for the current Studio and pinboard layouts. */
+:root{--section-space:72px;--section-space-small:24px}
+.studio-inquiries{margin-bottom:var(--section-space)}
+body[data-work-variant] main>.projects.work-study{padding-top:0;padding-bottom:var(--section-space)}
+body[data-work-variant] .work-study .work-heading{margin-bottom:var(--section-space-small)}
+body[data-work-variant] .projects.work-study .work-item{padding-bottom:var(--section-space)}
+body[data-work-variant] .projects.work-study .work-item:last-child{padding-bottom:0}
+main>.clients{padding:var(--section-space-small) 0 32px}
+.basic-footer{border-top:0}
+.sandbox-products.product-pinboard .shop{padding-bottom:40px}
+.sandbox-products.product-pinboard .waitlist{margin-top:32px;margin-bottom:var(--section-space-small)}
+@media(max-width:700px){
+ :root{--section-space:56px;--section-space-small:20px}
+ main>.clients{padding-bottom:24px}
+ .sandbox-products.product-pinboard .shop{padding-bottom:32px}
+ .sandbox-products.product-pinboard .waitlist{margin-top:24px}
+}
+/* Match the quiet section rule above Selected Clients. */
+body[data-work-variant] main>.projects.work-study{border-top:1px solid var(--line);padding-top:var(--section-space-small)}
+body[data-work-variant] .work-study .work-heading{text-align:center}
+body[data-work-variant] .work-study .work-heading .studio-label{width:100%;text-align:center}
+.site-header .logo.wordmark-tight{font-size:1.85rem}
+/* Wordmark studies: size and weight only, shared by Studio and After Hours. */
+body[data-wordmark=balanced] .site-header .logo.wordmark-tight{font-size:2.25rem;font-weight:400;letter-spacing:-.015em;line-height:1.1}
+body[data-wordmark=airy] .site-header .logo.wordmark-tight{font-size:2.55rem;font-weight:300;letter-spacing:-.025em;line-height:1.08}
+body[data-wordmark=display] .site-header .logo.wordmark-tight{font-size:3rem;font-weight:300;letter-spacing:-.03em;line-height:1.05}
+@media(max-width:640px){body[data-wordmark=display] .site-header .logo.wordmark-tight{font-size:2.7rem}}
+
+/* Review studies for the Studio introduction and inquiry link. */
+body[data-intro=sidecar] main:has(>.studio-inquiries){display:grid;grid-template-columns:minmax(0,1.7fr) minmax(290px,.8fr);column-gap:clamp(40px,6vw,92px);width:min(100%,var(--max-width));margin-inline:auto}
+body[data-intro=sidecar] main>.about{grid-column:1;width:100%;max-width:none;padding:20px 0 76px;margin:0}
+body[data-intro=sidecar] .about-copy{max-width:none}
+body[data-intro=sidecar] .about-copy p{font-size:clamp(26px,2.25vw,34px);line-height:1.34}
+body[data-intro=sidecar] main>.studio-inquiries{grid-column:2;display:block;width:100%;max-width:none;align-self:start;border:0;padding:25px 0 0;margin:0}
+body[data-intro=sidecar] .studio-inquiries h2{font-size:14px;color:var(--muted);margin-bottom:18px}
+body[data-intro=sidecar] .contact-actions{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+body[data-intro=sidecar] .contact-email{padding:0;border:0;border-radius:0;background:none;font-size:18px;gap:10px}
+body[data-intro=sidecar] .contact-email span:last-child{font-size:16px}
+body[data-intro=sidecar] .contact-linkedin{font-size:15px}
+body[data-intro=sidecar] main>.projects.work-study,body[data-intro=sidecar] main>.clients{grid-column:1/-1;width:100%}
+
+body[data-intro=inline] main>.about{padding-bottom:30px}
+body[data-intro=inline] .about-copy{max-width:1040px}
+body[data-intro=inline] .about-copy p{font-size:clamp(26px,2.2vw,34px);line-height:1.34}
+body[data-intro=inline] main>.studio-inquiries{display:flex;align-items:baseline;justify-content:flex-start;gap:32px;border:0;padding:0;margin-bottom:var(--section-space)}
+body[data-intro=inline] .studio-inquiries h2{font-size:14px;color:var(--muted);white-space:nowrap}
+body[data-intro=inline] .contact-actions{display:flex;align-items:baseline;gap:28px;max-width:none}
+body[data-intro=inline] .contact-email{padding:0;border:0;border-radius:0;background:none;font-size:18px;gap:10px}
+body[data-intro=inline] .contact-email span:last-child{font-size:16px}
+body[data-intro=inline] .contact-linkedin{font-size:15px}
+
+@media(max-width:900px){
+ body[data-intro=sidecar] main:has(>.studio-inquiries){display:block}
+ body[data-intro=sidecar] main>.about{padding:0 0 28px}
+ body[data-intro=sidecar] main>.studio-inquiries{padding:0;margin-bottom:var(--section-space)}
+ body[data-intro=sidecar] .contact-actions{flex-direction:row;align-items:baseline;gap:24px}
+}
+@media(max-width:700px){
+ body[data-intro=sidecar] .about-copy p,body[data-intro=inline] .about-copy p{font-size:clamp(22px,5vw,27px)}
+ body[data-intro=sidecar] .studio-inquiries h2{margin-bottom:10px}
+ body[data-intro=inline] main>.about{padding-bottom:24px}
+ body[data-intro=inline] main>.studio-inquiries{display:block}
+ body[data-intro=inline] .studio-inquiries h2{margin-bottom:10px}
+ body[data-intro=inline] .contact-actions{gap:18px;flex-wrap:wrap}
+}
