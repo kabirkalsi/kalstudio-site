@@ -11,7 +11,7 @@
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
  function animateViewer(open){
   if(reduce.matches)return Promise.resolve();
-  const frames=open?[{opacity:0,transform:'translate(-50%,-48%) scale(.97)'},{opacity:1,transform:'translate(-50%,-50%) scale(1)'}]:[{opacity:1,transform:'translate(-50%,-50%) scale(1)'},{opacity:0,transform:'translate(-50%,-48%) scale(.97)'}];
+  const frames=open?[{opacity:0,transform:'translate(-50%,-50%) scale(.985)'},{opacity:1,transform:'translate(-50%,-50%) scale(1)'}]:[{opacity:1,transform:'translate(-50%,-50%) scale(1)'},{opacity:0,transform:'translate(-50%,-50%) scale(.985)'}];
   return viewer.animate(frames,{duration:open?240:170,easing:'cubic-bezier(.2,.75,.25,1)',fill:'none'}).finished.catch(()=>{});
  }
  async function closeViewer(){if(closing||!viewer.open)return;closing=true;viewer.classList.add('is-closing');await animateViewer(false);viewer.close();viewer.classList.remove('is-closing');closing=false;}
@@ -23,7 +23,7 @@
   large.src=thumb.currentSrc||thumb.src;large.alt=thumb.alt;
   const full=new Image();full.src=link.href;
   full.decode().then(()=>{if(request===photoRequest&&viewer.open)large.src=full.src;}).catch(()=>{});
-  if(viewer.open&&!reduce.matches)large.animate([{opacity:.35},{opacity:1}],{duration:180,easing:'ease-out'});
+  if(viewer.open&&!reduce.matches)large.animate([{opacity:.65},{opacity:1}],{duration:180,easing:'ease-out'});
   viewer.querySelector('.work-viewer-count').textContent=`${current+1} / ${photos.length}`;
   viewer.querySelector('.work-viewer-caption').textContent=thumb.alt;
   for(const offset of [-1,1]){const neighbor=photos[(current+offset+photos.length)%photos.length];const warm=new Image();warm.src=neighbor.href;}

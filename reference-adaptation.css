@@ -109,3 +109,9 @@ html{scrollbar-gutter:stable}
  .logos .sandbar{font-size:10px;gap:2px}.logos .sandbar img{width:14px}
  .logos .wasted{width:60px}.logos img{max-height:24px}
 }
+
+/* Clew uses clean vector contours, sized by the visible wordmark. */
+.logos .clew{width:86px;height:34px;overflow:visible;display:flex;align-items:center;justify-content:center}
+.logos .clew img{position:static;transform:none;width:86px;height:auto;max-width:100%;max-height:34px;filter:none;opacity:.72}
+@media(max-width:640px){.logos .clew{width:62px;height:28px}.logos .clew img{width:62px;max-height:28px}}
+@media(max-width:380px){.logos .clew,.logos .clew img{width:52px}}

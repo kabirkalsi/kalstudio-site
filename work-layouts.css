@@ -100,7 +100,7 @@ body[data-work=composition] .work-motion{top:auto;bottom:12px;right:12px;border-
 @media(hover:none){.work-photo>a::after{opacity:1}}
 body.work-viewer-open{overflow:hidden}
 .work-viewer{position:fixed;inset:0;width:min(1240px,96vw);height:min(930px,94vh);max-width:none;max-height:none;padding:0;border:0;border-radius:8px;background:#1b1815;color:#f7f0e7;box-shadow:0 24px 90px #0008}
-.work-viewer::backdrop{background:rgba(20,16,13,.82)}
+.work-viewer::backdrop{background:rgba(247,240,231,.94)}
 .work-viewer-bar{height:60px;display:flex;align-items:center;gap:24px;padding:0 20px;font-size:14px}
 .work-viewer-project{font-weight:500;margin-right:auto}
 .work-viewer-count{color:#cfc4b8;font-variant-numeric:tabular-nums}
@@ -196,8 +196,8 @@ body[data-work-variant=margin] .projects.work-study .work-description{padding:0}
 .work-viewer::backdrop{animation:viewer-backdrop-in 240ms ease-out both}
 .work-viewer.is-closing::backdrop{animation:viewer-backdrop-out 170ms ease-in both}
 .work-viewer-caption{line-height:1.35;overflow:auto}
-@keyframes viewer-backdrop-in{from{background:rgba(20,16,13,0)}to{background:rgba(20,16,13,.82)}}
-@keyframes viewer-backdrop-out{from{background:rgba(20,16,13,.82)}to{background:rgba(20,16,13,0)}}
+@keyframes viewer-backdrop-in{from{background:rgba(247,240,231,0)}to{background:rgba(247,240,231,.94)}}
+@keyframes viewer-backdrop-out{from{background:rgba(247,240,231,.94)}to{background:rgba(247,240,231,0)}}
 @media(max-width:700px){
  .work-viewer{width:calc(100vw - 16px);height:min(720px,90dvh);max-height:90dvh}
  .work-viewer-bar{gap:12px;padding:0 14px}.work-viewer-stage{height:calc(100% - 126px);padding:0}
@@ -205,3 +205,13 @@ body[data-work-variant=margin] .projects.work-study .work-description{padding:0}
  .work-viewer-close{min-height:44px}.work-viewer-project{min-width:0}
 }
 @media(prefers-reduced-motion:reduce){.work-viewer::backdrop,.work-viewer.is-closing::backdrop{animation:none}}
+
+/* A warm gallery overlay keeps the photograph in the site's own visual language. */
+.work-viewer{background:transparent;color:var(--ink);box-shadow:none;border-radius:0;width:min(1240px,96vw)}
+.work-viewer::backdrop{background:rgba(247,240,231,.94)}
+.work-viewer-count,.work-viewer-caption{color:var(--muted)}
+.work-viewer-stage img{border-radius:6px}
+.work-viewer-prev,.work-viewer-next{background:rgba(247,240,231,.96);box-shadow:0 1px 8px #1b140f0a}
+.work-viewer button:focus-visible{outline-color:var(--muted)}
+.work-viewer-close{min-height:44px}
+@media(max-width:700px){.work-viewer{width:calc(100vw - 24px)}.work-viewer-stage img{border-radius:4px}}
