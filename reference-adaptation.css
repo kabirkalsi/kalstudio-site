@@ -103,3 +103,9 @@ html{scrollbar-gutter:stable}
  .logos{gap:18px 4px}.sandbar{font-size:12px;gap:3px}
 }
 @media(max-width:380px){.site-slider{margin-left:0;width:100%;justify-content:space-between}.site-slider input{flex:1;max-width:110px}}
+
+@media(max-width:380px){
+ .logos .clew{width:60px}.logos .clew img{width:80px}
+ .logos .sandbar{font-size:10px;gap:2px}.logos .sandbar img{width:14px}
+ .logos .wasted{width:60px}.logos img{max-height:24px}
+}
