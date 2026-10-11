@@ -85,3 +85,12 @@ body[data-intro=inline] .contact-linkedin{font-size:15px}
  body[data-intro=inline] .studio-inquiries h2{margin-bottom:10px}
  body[data-intro=inline] .contact-actions{gap:18px;flex-wrap:wrap}
 }
+
+/* Keep the inquiry label and destination together as one compact line. */
+@media(min-width:701px){
+ body[data-intro=inline] main>.studio-inquiries{gap:16px;align-items:baseline}
+ body[data-intro=inline] .studio-inquiries h2{font-size:15px;line-height:1.5;margin:0;font-weight:300}
+ body[data-intro=inline] .contact-actions{gap:0;line-height:1.5}
+ body[data-intro=inline] .contact-linkedin{font-size:16px;line-height:1.5;font-weight:300;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--line)}
+ body[data-intro=inline] .contact-linkedin:hover{text-decoration-color:var(--muted)}
+}
