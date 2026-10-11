@@ -188,3 +188,20 @@ body[data-work-variant=margin] .projects.work-study .work-description{padding:0}
  body[data-work-variant] .work-description .project-name{font-size:17px;margin-top:6px}
  body[data-work-variant=caption] .projects.work-study .work-description{padding-top:16px}
 }
+
+/* A stable stage prevents differently shaped images from shifting the controls. */
+.work-viewer{height:min(850px,92dvh);max-height:92dvh;overflow:hidden}
+.work-viewer-stage{height:calc(100% - 112px);max-height:none;padding:0 64px}
+.work-viewer-stage img{width:100%;height:100%;max-height:none;object-fit:contain}
+.work-viewer::backdrop{animation:viewer-backdrop-in 240ms ease-out both}
+.work-viewer.is-closing::backdrop{animation:viewer-backdrop-out 170ms ease-in both}
+.work-viewer-caption{line-height:1.35;overflow:auto}
+@keyframes viewer-backdrop-in{from{background:rgba(20,16,13,0)}to{background:rgba(20,16,13,.82)}}
+@keyframes viewer-backdrop-out{from{background:rgba(20,16,13,.82)}to{background:rgba(20,16,13,0)}}
+@media(max-width:700px){
+ .work-viewer{width:calc(100vw - 16px);height:min(720px,90dvh);max-height:90dvh}
+ .work-viewer-bar{gap:12px;padding:0 14px}.work-viewer-stage{height:calc(100% - 126px);padding:0}
+ .work-viewer-caption{height:68px;padding:8px 14px;font-size:14px}
+ .work-viewer-close{min-height:44px}.work-viewer-project{min-width:0}
+}
+@media(prefers-reduced-motion:reduce){.work-viewer::backdrop,.work-viewer.is-closing::backdrop{animation:none}}

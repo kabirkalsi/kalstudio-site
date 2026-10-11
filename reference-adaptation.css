@@ -93,3 +93,13 @@ html{scrollbar-gutter:stable}
 .motion-ghost{position:absolute!important;inset:0 0 auto;filter:blur(3px);pointer-events:none!important;contain:paint}
 /* Intrinsic dimensions reserve image space without fixing the rendered height. */
 .gallery-main{height:auto}
+
+/* Transparent logo artwork avoids blending bugs on mobile compositors. */
+.logos .clew,.logos .clew img{mix-blend-mode:normal;filter:none;opacity:1}
+@media(max-width:600px){
+ .page{padding-inline:20px}.site-header{flex-wrap:wrap;row-gap:20px;padding-bottom:48px}
+ .site-slider{margin-left:auto;gap:10px}.site-slider button{min-height:44px;font-size:14px;white-space:nowrap}
+ .site-slider input{width:64px}.about-copy{min-width:0}
+ .logos{gap:18px 4px}.sandbar{font-size:12px;gap:3px}
+}
+@media(max-width:380px){.site-slider{margin-left:0;width:100%;justify-content:space-between}.site-slider input{flex:1;max-width:110px}}
