@@ -94,3 +94,13 @@ body[data-intro=inline] .contact-linkedin{font-size:15px}
  body[data-intro=inline] .contact-linkedin{font-size:16px;line-height:1.5;font-weight:300;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--line)}
  body[data-intro=inline] .contact-linkedin:hover{text-decoration-color:var(--muted)}
 }
+
+/* One clear inquiry action, adapted from the expressive concept for Studio. */
+main>.studio-inquiries.inquiry-link-block{display:block;border:0;padding:0;margin-bottom:var(--section-space)}
+.inquiry-link-block .inquiry-link{display:inline-flex;align-items:baseline;gap:1.1rem;width:max-content;max-width:100%;padding:0 0 .45rem;border-bottom:1px solid currentColor;color:var(--ink);font-size:clamp(1.15rem,1.6vw,1.45rem);font-weight:300;line-height:1.35;text-decoration:none;transition:color .2s ease,border-color .2s ease}
+.inquiry-link-block .inquiry-link span{display:inline-block;transition:transform .22s ease}
+.inquiry-link-block .inquiry-link:hover{color:var(--accent)}
+.inquiry-link-block .inquiry-link:hover span{transform:translate(3px,-3px)}
+.inquiry-link-block .inquiry-link:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+@media(max-width:700px){main>.studio-inquiries.inquiry-link-block{margin-top:0}.inquiry-link-block .inquiry-link{font-size:1.2rem}}
+@media(prefers-reduced-motion:reduce){.inquiry-link-block .inquiry-link,.inquiry-link-block .inquiry-link span{transition:none}}
