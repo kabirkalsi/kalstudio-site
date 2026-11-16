@@ -5,7 +5,7 @@
  document.body.dataset.workVariant=variants.has(requested)?requested:'caption';
  // The source links still work without JavaScript; here they open a project gallery.
  const viewer=document.createElement('dialog');viewer.className='work-viewer';viewer.setAttribute('aria-label','Project image viewer');
- viewer.innerHTML=`<div class="work-viewer-bar"><span class="work-viewer-project"></span><span class="work-viewer-count" aria-live="polite"></span><button class="work-viewer-close" type="button" aria-label="Close image viewer">Close ×</button></div><div class="work-viewer-stage"><button class="work-viewer-prev" type="button" aria-label="Previous image">←</button><img alt=""><button class="work-viewer-next" type="button" aria-label="Next image">→</button></div><p class="work-viewer-caption"></p>`;
+ viewer.innerHTML=`<div class="work-viewer-bar"><span class="work-viewer-project"></span><span class="work-viewer-count" aria-live="polite"></span><button class="work-viewer-close" type="button" aria-label="Close image viewer">Close ×</button></div><div class="work-viewer-stage"><button class="work-viewer-prev" type="button" aria-label="Previous image">←</button><img alt=""><button class="work-viewer-next" type="button" aria-label="Next image">→</button></div>`;
  document.body.append(viewer);
  let photos=[],current=0,opener=null,closing=false,photoRequest=0;
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
@@ -25,7 +25,6 @@
   full.decode().then(()=>{if(request===photoRequest&&viewer.open)large.src=full.src;}).catch(()=>{});
   if(viewer.open&&!reduce.matches)large.animate([{opacity:.65},{opacity:1}],{duration:180,easing:'ease-out'});
   viewer.querySelector('.work-viewer-count').textContent=`${current+1} / ${photos.length}`;
-  viewer.querySelector('.work-viewer-caption').textContent=thumb.alt;
   for(const offset of [-1,1]){const neighbor=photos[(current+offset+photos.length)%photos.length];const warm=new Image();warm.src=neighbor.href;}
  }
  viewer.querySelector('.work-viewer-close').addEventListener('click',()=>closeViewer());

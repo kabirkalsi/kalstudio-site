@@ -1,0 +1,391 @@
+/* Preview controls; the site beneath remains at production width. */
+.study-bar{position:sticky;top:0;z-index:110;min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 24px;background:var(--bg);border-bottom:1px solid var(--line);color:var(--ink);font:400 13px/1.35 var(--sans)}
+.study-bar i{display:inline-block;width:6px;height:6px;margin-right:8px;border-radius:50%;background:var(--accent)}
+.study-bar small{color:var(--muted);margin-left:10px}
+.study-bar nav{display:flex;align-items:center;gap:18px}
+.study-bar button{padding:6px 0;border:0;border-bottom:1px solid transparent;background:none;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+.study-bar button[aria-pressed=true]{border-color:var(--ink);color:var(--ink)}
+.study-bar button:hover{color:var(--ink)}
+.study-bar button:focus-visible,.study-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.study-stage{background:var(--bg)}
+.study-stage>.page{width:100%;max-width:none;padding:42px 24px 60px;box-shadow:none}
+body[data-study] .projects.work-study{width:100%;max-width:var(--max-width);margin-inline:auto}
+body[data-study] .projects.work-study .work-heading{border:0;padding:0;margin:0 0 20px;text-align:center}
+body[data-study] .projects.work-study .work-item{gap:24px}
+body[data-study] .projects.work-study .work-description{width:100%;padding:0 1px;align-items:start}
+body[data-study] .work-description h3{margin:0 0 5px;font:300 clamp(28px,3.3vw,43px)/1.15 var(--sans);letter-spacing:-.025em}
+body[data-study] .work-description .project-name{margin:0;color:var(--muted);font:300 17px/1.55 var(--sans)}
+.study-toggle{display:inline-flex;align-items:center;gap:18px;justify-self:start;align-self:start;padding:0 0 3px;border:0;border-bottom:1px solid currentColor;background:none;color:var(--ink);font:400 14px/1.4 var(--sans);cursor:pointer;transition:color .18s ease}
+.study-toggle:hover{color:var(--accent)}
+.study-toggle span:last-child{font-size:17px;line-height:1;transition:transform .2s ease}
+.study-open .study-toggle span:last-child{transform:rotate(45deg)}
+.study-detail{width:100%;display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .35s cubic-bezier(.22,1,.36,1),opacity .2s ease}
+.study-open .study-detail{grid-template-rows:1fr;opacity:1}
+.study-detail-inner{min-height:0;overflow:hidden}
+.study-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;margin-top:25px;padding:24px 1px 0;border-top:1px solid var(--line)}
+.study-detail-label{display:block;margin-bottom:11px;color:var(--muted);font:400 13px/1.4 var(--sans)}
+.study-role{max-width:31ch;margin:0;font:300 clamp(20px,2.1vw,27px)/1.32 var(--sans);letter-spacing:-.02em}
+.study-contribution{max-width:42ch;margin:0;font:300 17px/1.62 var(--sans)}
+.study-role-list,.study-contribution-list{list-style:none;margin:0;padding:0}
+.study-role-list{display:grid;gap:7px;max-width:31ch;font:300 clamp(20px,2.1vw,27px)/1.32 var(--sans);letter-spacing:-.02em}
+.study-contribution-list{display:grid;gap:13px;max-width:54ch;font:300 17px/1.55 var(--sans)}
+.study-contribution-list li{position:relative;padding-left:14px}
+.study-contribution-list li::before{position:absolute;left:1px;top:.68em;width:4px;height:4px;border-radius:50%;background:var(--muted);content:''}
+.study-stage-note{margin:20px 0 0;color:var(--muted);font:300 15px/1.5 var(--sans)}
+
+/* Split: the project caption occupies the existing two-column baseline. */
+body[data-study=split] .projects.work-study .work-description{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:72px}
+body[data-study=split] .work-description h3{grid-column:1;grid-row:1}
+body[data-study=split] .work-description .project-name{grid-column:2;grid-row:1;align-self:baseline;color:var(--ink);font-size:18px}
+body[data-study=split] .study-toggle{grid-column:2;grid-row:2;margin-top:19px}
+
+/* Stack: the familiar caption keeps the name and product together. */
+body[data-study=stack] .projects.work-study .work-description{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:32px}
+body[data-study=stack] .work-description h3{grid-column:1;grid-row:1}
+body[data-study=stack] .work-description .project-name{grid-column:1;grid-row:2}
+body[data-study=stack] .study-toggle{grid-column:2;grid-row:1/3;justify-self:end;margin-top:9px}
+
+/* Line: an understated three-part caption, with the detailed record below. */
+body[data-study=line] .projects.work-study .work-description{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;column-gap:32px;align-items:baseline}
+body[data-study=line] .work-description h3{grid-column:1;grid-row:1}
+body[data-study=line] .work-description .project-name{grid-column:2;grid-row:1;color:var(--ink);font-size:18px}
+body[data-study=line] .study-toggle{grid-column:3;grid-row:1;justify-self:end}
+
+.study-mobile-frame{display:none;width:390px;max-width:100%;height:850px;border:1px solid var(--line);background:var(--bg);margin:20px auto}
+.study-mobile-on .study-stage{display:none}
+.study-mobile-on .study-mobile-frame{display:block}
+.study-embedded .study-bar{display:none}
+.study-embedded .study-stage>.page{padding:24px 20px 60px}
+@media(max-width:700px){
+ .study-bar{flex-wrap:wrap;gap:3px;padding:7px 20px}.study-bar>span{width:100%}.study-bar small{display:none}.study-bar nav{flex:1;gap:14px}.study-bar button{font-size:12px}
+ .study-stage>.page{padding:24px 20px 60px}
+ body[data-study] .projects.work-study .work-item{gap:21px;padding:24px 0 58px}
+ body[data-study] .projects.work-study .work-description{display:grid;grid-template-columns:1fr auto;column-gap:12px;padding:0}
+ body[data-study] .work-description h3{grid-column:1;grid-row:1;font-size:30px}
+ body[data-study] .work-description .project-name{grid-column:1;grid-row:2;font-size:16px;color:var(--muted)}
+ body[data-study] .study-toggle{grid-column:2;grid-row:1/3;font-size:12px;gap:8px;align-self:start;justify-self:end;margin-top:8px}
+ .study-detail-grid{display:block;gap:0;margin-top:20px;padding-top:20px}
+ .study-role{font-size:22px;line-height:1.32;letter-spacing:-.02em;margin-bottom:24px}.study-contribution{font-size:16px}
+ .study-role-list{font-size:22px;line-height:1.32;letter-spacing:-.02em;gap:6px;margin-bottom:24px}.study-contribution-list{font-size:16px;gap:12px}
+}
+@media(prefers-reduced-motion:reduce){.study-detail,.study-toggle,.study-toggle span:last-child{transition:none!important}}
+/* The three control studies share the chosen Stack caption layout. */
+body[data-study] .projects.work-study .work-description{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:32px}
+body[data-study] .work-description h3{grid-column:1;grid-row:1}
+body[data-study] .work-description .project-name{grid-column:1;grid-row:2}
+body[data-study] .study-toggle{grid-column:2;grid-row:1/3;justify-self:end;align-self:start;margin-top:4px;gap:14px;border-bottom:0;padding:0;font-size:15px}
+.study-toggle-label{border-bottom:1px solid currentColor;padding-bottom:3px}
+.study-symbol{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;color:var(--ink);transition:border-color .2s ease,background-color .2s ease}
+.study-toggle:hover .study-symbol{border-color:var(--ink)}
+.study-symbol svg{grid-area:1/1;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;transition:transform .48s cubic-bezier(.2,.8,.25,1),opacity .2s ease}
+.study-symbol .study-bearing,.study-symbol .study-fastener,.study-symbol .study-gear{display:none}
+body[data-study=bearing] .study-symbol .study-bearing,body[data-study=fastener] .study-symbol .study-fastener,body[data-study=gear] .study-symbol .study-gear{display:block}
+body[data-study=bearing] .study-open .study-bearing{transform:rotate(45deg)}
+body[data-study=fastener] .study-open .study-fastener{transform:rotate(90deg)}
+body[data-study=fastener] .study-fastener-cross{transition:opacity .18s ease}
+body[data-study=fastener] .study-open .study-fastener-cross{opacity:0}
+body[data-study=gear] .study-open .study-gear{transform:rotate(60deg)}
+body[data-study=gear] .study-symbol{border:0}
+@media(max-width:700px){body[data-study] .projects.work-study .work-description{display:grid;grid-template-columns:1fr auto;column-gap:12px}body[data-study] .study-toggle{grid-column:2;grid-row:1/3;gap:7px;font-size:12px;margin-top:0}.study-symbol{width:30px;height:30px}.study-symbol svg{width:21px;height:21px}}
+@media(prefers-reduced-motion:reduce){.study-symbol,.study-symbol svg,.study-fastener-cross{transition:none!important}}
+/* Four client-specific mechanisms; the caption and production-width photography stay fixed. */
+body[data-study] .study-symbol svg{display:none}
+body[data-study] .work-item[data-client=aescape] .study-gear,
+body[data-study] .work-item[data-client=peloton] .study-bearing,
+body[data-study] .work-item[data-client=uber] .study-fastener,
+body[data-study] .work-item[data-client=sandbar] .study-dial{display:block}
+.work-item[data-client=aescape]{--turn:135deg}
+.work-item[data-client=peloton]{--turn:45deg}
+.work-item[data-client=uber]{--turn:90deg}
+.work-item[data-client=sandbar]{--turn:60deg}
+body[data-study] .work-item[data-client=aescape] .study-symbol,
+body[data-study] .work-item[data-client=sandbar] .study-symbol{border-color:transparent}
+body[data-study] .work-item[data-client=sandbar] .study-dial{display:block}
+body[data-study] .study-open .study-symbol svg{transform:rotate(var(--turn))}
+body[data-study] .study-open .study-fastener-cross{opacity:0}
+
+/* 01 Precision: one decisive, quiet quarter-turn. */
+body[data-study=precision] .study-symbol svg{transition:transform .34s cubic-bezier(.2,.8,.2,1)}
+
+/* 02 Wind-up: slight counter-rotation before the mechanism releases. */
+@keyframes study-wind{0%{transform:rotate(0)}19%{transform:rotate(-15deg)}72%{transform:rotate(calc(var(--turn) + 10deg))}100%{transform:rotate(var(--turn))}}
+body[data-study=wind] .study-symbol svg{transition:transform .32s cubic-bezier(.2,.8,.2,1)}
+body[data-study=wind] .study-open .study-symbol svg{animation:study-wind .64s cubic-bezier(.2,.7,.2,1) both}
+
+/* 03 Ratchet: four deliberate mechanical clicks. */
+body[data-study=ratchet] .study-symbol svg{transition:transform .46s steps(4,end)}
+body[data-study=ratchet] .study-open .study-symbol svg{transform:rotate(var(--turn))}
+
+/* 04 Spring: a restrained overshoot, settling at the open state. */
+body[data-study=spring] .study-symbol svg{transition:transform .56s cubic-bezier(.18,1.42,.3,1)}
+body[data-study=spring] .study-open .study-symbol svg{transform:rotate(var(--turn))}
+body[data-study=spring] .study-open .study-symbol{background:var(--accent-soft);border-color:var(--accent-soft)}
+body[data-study=spring] .study-symbol{transition:background-color .3s ease,border-color .3s ease}
+@media(max-width:700px){.study-bar nav{flex-wrap:wrap;gap:6px 13px}.study-bar button{font-size:11px}}
+@media(prefers-reduced-motion:reduce){body[data-study] .study-symbol svg,body[data-study] .study-symbol{transition:none!important;animation:none!important}}
+
+/* Selected client mechanisms for this preview. */
+body[data-study] .work-item[data-client=peloton] .study-bearing,
+body[data-study] .work-item[data-client=uber] .study-fastener{display:none}
+body[data-study] .work-item[data-client=peloton] .study-fastener,
+body[data-study] .work-item[data-client=uber] .study-iris{display:block}
+.work-item[data-client=peloton]{--turn:90deg}
+.work-item[data-client=uber]{--turn:30deg}
+.work-item[data-client=uber] .study-open .study-iris{transform:none}
+body[data-study] .work-item[data-client=peloton] .study-open .study-fastener-cross{opacity:0}
+.study-stage .site-slider{gap:13px}
+.site-slider .cam-track{position:relative;width:96px;height:44px;display:flex;align-items:center;flex:none}
+.site-slider .cam-track:before{content:'';position:absolute;left:7px;right:7px;top:50%;border-top:1px solid #b7a999}
+.site-slider .cam-track input{position:relative;z-index:2;width:96px;opacity:0}
+.site-slider .cam-thumb{position:absolute;z-index:1;top:4px;left:0;width:36px;height:36px;display:grid;place-items:center;color:var(--ink);transform:translateX(calc(var(--cam-position,0) * 60px));pointer-events:none;will-change:transform}
+.cam-thumb svg{width:36px;height:36px;overflow:visible;transform:rotate(calc(var(--cam-position,0) * 115deg));transform-origin:50% 50%;will-change:transform}
+.cam-thumb .cam-body{fill:var(--ink);stroke:none}
+.cam-thumb .cam-bore{fill:var(--bg);stroke:none}
+.site-slider .cam-track:focus-within .cam-thumb{outline:2px solid var(--ink);outline-offset:3px}
+.cam-stage{position:relative;isolation:isolate}
+.cam-panel[hidden]{display:none!important}
+.cam-stage.is-moving .cam-panel{position:absolute;inset:0 0 auto;width:100%;pointer-events:none}
+.cam-blue{position:absolute;inset:0;background:#8eafc6;opacity:0;pointer-events:none;z-index:3}
+.cam-status{position:absolute;right:0;top:100%;font:300 12px/1.3 var(--sans);color:var(--muted)}
+@media(max-width:700px){.site-slider .cam-track{width:76px}.site-slider .cam-track input{width:76px}.site-slider .cam-thumb{transform:translateX(calc(var(--cam-position,0) * 40px))}.study-bar>span:nth-child(2){display:none}}
+@media(prefers-reduced-motion:reduce){.site-slider .cam-thumb,.cam-thumb svg{will-change:auto}}
+
+/* Keep each mechanism on a fixed axis; only the iris blades and opening move. */
+body[data-study] .study-symbol svg{overflow:visible;transform-box:view-box;transform-origin:50% 50%}
+body[data-study] .work-item[data-client=aescape] .study-gear{transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+body[data-study] .work-item[data-client=aescape].study-open .study-gear{transform:rotate(135deg)}
+body[data-study] .work-item[data-client=uber] .study-iris{transform:none!important}
+.study-iris .iris-blades,.study-iris .iris-opening{transform-box:view-box;transform-origin:50% 50%;transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+.work-item[data-client=uber].study-open .iris-blades{transform:rotate(34deg) scale(.83)}
+.work-item[data-client=uber].study-open .iris-opening{transform:scale(2.15)}
+@media(prefers-reduced-motion:reduce){.study-iris .iris-blades,.study-iris .iris-opening{transition:none!important}}
+
+/* The preview shell must not alter Kalstudio's production type or measure. */
+.study-stage{color:var(--ink);font:400 16px/1.6 var(--sans);margin:0}
+.study-stage>.page{width:100%;max-width:none;padding:42px 24px 60px;color:var(--ink);font:400 16px/1.6 var(--sans)}
+body[data-study] .projects.work-study{max-width:var(--max-width)}
+body[data-study] .projects.work-study .work-description h3{color:var(--ink);font:300 clamp(31px,3vw,38px)/1.1 var(--sans);letter-spacing:-.025em;margin:0}
+body[data-study] .projects.work-study .work-description .project-name{color:var(--muted);font:300 19px/1.55 var(--sans);margin:7px 0 0}
+body[data-study] .projects.work-study .work-heading{margin-bottom:0;padding-bottom:19px;border-bottom:1px solid var(--line)}
+body[data-study] .projects.work-study .work-item{padding:36px 0 80px;gap:24px}
+body[data-study] .projects.work-study .work-description{padding:20px 0 0}
+@media(max-width:700px){.study-stage>.page{padding:24px 20px 60px}body[data-study] .projects.work-study .work-description h3{font-size:30px}body[data-study] .projects.work-study .work-description .project-name{font-size:16px}}
+
+/* Four low-contrast finishes, all using the same offset-bore cam geometry. */
+.cam-choices{display:flex;align-items:center;gap:17px}
+.cam-choices button{font-size:13px}
+.cam-thumb .cam-body{stroke-width:1.1;stroke-linejoin:round}
+.cam-thumb .cam-bore{stroke-width:1}
+body[data-cam=porcelain] .cam-body{fill:#f4eee5;stroke:#766d62}
+body[data-cam=porcelain] .cam-bore{fill:var(--bg);stroke:#766d62}
+body[data-cam=aluminum] .cam-body{fill:url(#cam-metal);stroke:#9b9a94}
+body[data-cam=aluminum] .cam-bore{fill:var(--bg);stroke:#888781}
+body[data-cam=brushed] .cam-body{fill:url(#cam-brushed);stroke:#9b9c97}
+body[data-cam=brushed] .cam-bore{fill:var(--bg);stroke:#878a84}
+body[data-cam=nickel] .cam-body{fill:#bcb8ac;stroke:#888377}
+body[data-cam=nickel] .cam-bore{fill:var(--bg);stroke:#777268}
+body[data-cam=outline] .cam-body{fill:var(--bg);stroke:#81766a;stroke-width:1.5}
+body[data-cam=outline] .cam-bore{fill:var(--bg);stroke:#81766a;stroke-width:1.25}
+@media(max-width:700px){.cam-choices{flex-wrap:wrap;gap:3px 12px}.cam-choices button{font-size:11px}}
+
+/* Five possible fourth mechanisms, evaluated in Uber's production-width caption. */
+.fourth-choices{display:flex;align-items:center;gap:17px}
+.fourth-choices button{font-size:13px}
+body[data-study] .work-item[data-client=uber] .study-symbol svg{display:none;transform:none}
+body[data-study][data-fourth=circlip] .work-item[data-client=uber] .fourth-circlip,
+body[data-study][data-fourth=race] .work-item[data-client=uber] .fourth-race,
+body[data-study][data-fourth=linkage] .work-item[data-client=uber] .fourth-linkage,
+body[data-study][data-fourth=collet] .work-item[data-client=uber] .fourth-collet,
+body[data-study][data-fourth=bayonet] .work-item[data-client=uber] .fourth-bayonet{display:block}
+.fourth-race .race-balls,.fourth-linkage .linkage-arm,.fourth-collet .collet-jaws,.fourth-bayonet .bayonet-lock{transform-box:view-box;transform-origin:50% 50%;transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+body[data-study] .work-item[data-client=uber] .study-symbol .fourth-circlip{transform:rotate(180deg)}
+body[data-study] .work-item[data-client=uber].study-open .study-symbol .fourth-circlip{transform:rotate(90deg)}
+body[data-study] .work-item[data-client=uber].study-open .race-balls{transform:rotate(120deg)}
+body[data-study] .work-item[data-client=uber].study-open .linkage-arm{transform:rotate(43deg)}
+body[data-study] .work-item[data-client=uber].study-open .collet-jaws{transform:scale(1.22)}
+body[data-study] .work-item[data-client=uber].study-open .bayonet-lock{transform:rotate(52deg)}
+.fourth-circlip .clip-band{fill:none;stroke-width:1.3;stroke-linejoin:round}
+.fourth-circlip .clip-hole{fill:var(--bg);stroke-width:.9}
+@media(max-width:700px){.fourth-choices{flex-wrap:wrap;gap:3px 12px}.fourth-choices button{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.fourth-race .race-balls,.fourth-linkage .linkage-arm,.fourth-collet .collet-jaws,.fourth-bayonet .bayonet-lock{transition:none!important}}
+
+/* Sandbar's index turns from left to down, matching the retaining-ring action. */
+body[data-study] .work-item[data-client=sandbar] .study-symbol .study-dial{transform:rotate(0deg)}
+body[data-study] .work-item[data-client=sandbar].study-open .study-symbol .study-dial{transform:rotate(-90deg)}
+
+/* Selected Clients is a quiet typographic index with no logo tiles. */
+body[data-study] .clients{max-width:var(--max-width);margin:76px auto 90px;padding:26px 0 33px}
+body[data-study] .clients .studio-label{text-align:center}
+body[data-study] .clients .logos{margin:22px auto 0}
+body[data-study] .clients .logos li{background:transparent}
+.client-link{display:flex;align-items:center;justify-content:center;min-width:0;min-height:68px;width:100%;padding:10px;text-decoration:none;color:var(--ink)}
+a.client-link:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.client-static{cursor:default}
+.client-link img{display:block;filter:brightness(0)!important;opacity:.85;transition:filter .28s ease,opacity .28s ease}
+.client-link .sandbar{color:var(--ink);transition:color .28s ease}
+/* Color only the marks. JUMP keeps its guideline-approved dark wordmark; Peloton and Wasted* carry color. */
+body[data-logos=reveal] .client-link:hover img,body[data-logos=reveal] a.client-link:focus-visible img,
+body[data-logos=always] .client-link img{filter:none!important;opacity:1}
+body[data-logos=reveal] .client-peloton:hover img,body[data-logos=reveal] a.client-peloton:focus-visible img,
+body[data-logos=always] .client-peloton img{filter:brightness(0) saturate(100%) invert(21%) sepia(87%) saturate(3900%) hue-rotate(351deg) brightness(98%) contrast(103%)!important}
+body[data-logos=reveal] .client-jump:hover img,body[data-logos=reveal] a.client-jump:focus-visible img,
+body[data-logos=always] .client-jump img{filter:brightness(0)!important}
+/* Aescape's source mark is white; show its unboxed dark lockup on the paper background. */
+body[data-logos=reveal] .client-aescape:hover img,body[data-logos=reveal] a.client-aescape:focus-visible img,
+body[data-logos=always] .client-aescape img{filter:brightness(0)!important;opacity:1}
+body[data-logos=tonal] .client-link img{filter:brightness(0)!important;opacity:.52}
+body[data-logos=tonal] .client-link:hover img,body[data-logos=tonal] a.client-link:focus-visible img{opacity:1}
+body[data-logos=tonal] .client-clew img{opacity:.52}
+body[data-logos=tonal] .client-clew:hover img{opacity:1}
+.logos .client-clew .clew,.logos .client-clew .clew img{width:84px;height:auto;max-height:34px}
+.logos .client-clew .clew img{filter:none!important;opacity:1}
+body[data-logos=tonal] .logos .client-clew .clew img{filter:brightness(0)!important;opacity:.52}
+body[data-logos=tonal] .logos .client-clew:hover .clew img{opacity:1}
+body[data-study] .projects.work-study{border-top:0;padding-top:0}
+body[data-study] .work-item{scroll-margin-top:100px}
+.logo-choices{display:flex;align-items:center;gap:12px}
+@media(max-width:700px){body[data-study] .clients{margin:50px auto 62px;padding:22px 0 26px}.client-link{min-height:52px;padding:7px}.logo-choices{gap:10px}.logos .client-clew .clew,.logos .client-clew .clew img{width:62px;max-height:28px}}
+@media(prefers-reduced-motion:reduce){.client-link img,.client-link .sandbar{transition:none!important}}
+
+/* Mechanism motion only changes transforms; avoid competing symbol transitions. */
+body[data-study] .study-symbol svg{backface-visibility:hidden;transform-style:flat;transition:transform .34s cubic-bezier(.2,.8,.2,1)}
+body[data-study] .study-symbol{transition:border-color .18s ease}
+body[data-study] .work-item[data-client=aescape] .study-gear{transition:transform .34s cubic-bezier(.2,.8,.2,1)}
+.cam-stage.is-moving .cam-panel,.cam-stage.is-moving .cam-blue{will-change:opacity}
+@media(max-width:700px){body[data-study] .clients{margin:50px auto 62px;padding:22px 0 26px}.client-link{min-height:52px;padding:7px}.work-briefs{gap:16px}.work-brief h3{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.client-link,.client-link img,.client-link .sandbar,body[data-study] .study-symbol svg{transition:none!important}}
+
+/* The latest preview uses the approved Studio mechanism study as its source. */
+body{--max-width:1120px}
+.study-bar .palette-display{font-size:13px;color:#756c63}
+.study-bar .palette-current{color:#1b140f}
+body[data-variant=oxide]{--after-bg:#e8c2ac;--after-sheet:#f4ddd0;--after-ink:#34271e;--after-muted:#71584b;--after-line:#cba18b;--after-accent:#ab4d30}
+body[data-variant=moss]{--after-bg:#d9ddc6;--after-sheet:#e9e9d9;--after-ink:#2e382b;--after-muted:#65705d;--after-line:#adb69e;--after-accent:#54694a}
+body[data-variant=blueprint]{--after-bg:#d1dee6;--after-sheet:#e8eef0;--after-ink:#203345;--after-muted:#536677;--after-line:#9db4c2;--after-accent:#aa5f49}
+body[data-variant=chalk]{--after-bg:#e8e3d8;--after-sheet:#f4f1e9;--after-ink:#302c26;--after-muted:#716b62;--after-line:#c9c0b4;--after-accent:#796653}
+body::before{content:'';position:fixed;inset:0;background:var(--after-bg);opacity:var(--ah-progress,0);pointer-events:none;z-index:0}
+.study-bar,.study-stage{position:relative;z-index:1}
+.cam-blue{display:none!important}
+.cam-panel.product-pinboard{--bg:var(--after-bg);--bg-strong:var(--after-sheet);--ink:var(--after-ink);--muted:var(--after-muted);--line:var(--after-line);--accent:var(--after-accent);background:transparent!important;color:var(--after-ink)}
+.cam-panel.product-pinboard .gallery-main{background:var(--after-sheet);border-color:var(--after-sheet)}
+.cam-panel.product-pinboard .gallery-thumbs button,.cam-panel.product-pinboard .specs{background:var(--after-sheet)}
+.cam-panel.product-pinboard .spec-row,.cam-panel.product-pinboard .waitlist{border-color:var(--after-line)}
+.cam-panel.product-pinboard .waitlist-form input{background:var(--after-sheet);border-color:var(--after-line)}
+@media(max-width:700px){body{--max-width:100%}.study-bar .palette-display{display:none}}
+.study-stage>.page{background:transparent!important}
+/* Keep the production rhythm even with the added work disclosures. */
+body[data-study] .projects.work-study .work-item{padding:0 0 72px;gap:0}
+body[data-study] .projects.work-study .work-item:last-child{padding-bottom:0}
+body[data-study] .projects.work-study .work-description{padding:20px 0 0;row-gap:0}
+@media(max-width:700px){body[data-study] .projects.work-study .work-item{padding:0 0 58px;gap:0}}
+body[data-study] .projects.work-study .work-heading{margin-bottom:24px;padding-bottom:0;border-bottom:0}
+body[data-study] .projects.work-study .work-description .project-name{line-height:1.4}
+/* Let the shared page tint show through the persistent header during the dissolve. */
+.study-stage{background:transparent!important}
+
+/* Selected Clients already supplies the shared divider above Selected Work. */
+body[data-study] .projects.work-study{border-top:0!important}
+/* Keep work disclosure geometry stable: no frame-by-frame height reflow. */
+body[data-study] .study-toggle{min-width:122px;justify-content:flex-end}
+body[data-study] .study-toggle-label{display:inline-block;min-width:70px;text-align:right}
+body[data-study] .study-detail{display:grid;grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .16s cubic-bezier(.4,0,1,1),opacity .12s ease,visibility 0s linear .16s}
+body[data-study] .study-open .study-detail{grid-template-rows:1fr;opacity:1;visibility:visible;transition:grid-template-rows .26s cubic-bezier(.2,.75,.2,1),opacity .2s ease,visibility 0s}
+body[data-study] .study-detail-inner{min-height:0;overflow:hidden}
+/* Each mechanism rotates at the SVG only. The inherited outer 45° snap caused a first-click double turn. */
+body[data-study] .study-toggle .study-symbol,
+body[data-study] .study-open .study-toggle .study-symbol{transform:none!important}
+body[data-study] .work-item[data-client=aescape] .study-symbol,
+body[data-study] .work-item[data-client=sandbar] .study-symbol{border:1px solid var(--line)!important}
+body[data-study] .work-item[data-client=aescape] .study-toggle:hover .study-symbol,
+body[data-study] .work-item[data-client=sandbar] .study-toggle:hover .study-symbol{border-color:var(--ink)!important}
+@media(prefers-reduced-motion:reduce){body[data-study] .study-detail,body[data-study] .study-open .study-detail{transition:none}}
+body[data-study] .study-toggle .study-symbol svg{transition-duration:.16s}
+body[data-study] .study-open .study-toggle .study-symbol svg{transition-duration:.26s}
+
+.study-bar .palette-display{display:none}
+.sheet-choices{display:flex;align-items:center;gap:25px;margin:auto}
+.sheet-choices button{font:400 13px/1.3 var(--sans);color:var(--muted);border:0;border-bottom:1px solid transparent;padding:5px 0;background:none;cursor:pointer}
+.sheet-choices button[aria-pressed=true]{color:var(--ink);border-color:currentColor}
+.sheet-choices button:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+
+/* Field: the entire project note reads as a single, deliberately inset sheet. */
+body[data-sheet=field] .study-detail-grid{grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr);gap:clamp(35px,5vw,76px);margin-top:27px;padding:32px 36px;background:#efe9df;border:1px solid var(--line)}
+body[data-sheet=field] .study-detail-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+body[data-sheet=field] .study-role{font-size:clamp(20px,1.9vw,25px);line-height:1.32;letter-spacing:-.02em;max-width:31ch}
+body[data-sheet=field] .study-contribution{font-size:17px;line-height:1.55}
+body[data-sheet=field] .study-role-list{font-size:clamp(20px,1.9vw,25px)}
+body[data-sheet=field] .study-stage-note{font-size:13px;margin-top:17px}
+
+/* Editorial: the engineering decision leads, while the role sits in a narrow rail. */
+body[data-sheet=editorial] .study-detail-grid{grid-template-columns:minmax(0,1.35fr) minmax(180px,.5fr);gap:50px;margin-top:27px;padding:33px 34px;background:#f2ece3;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+body[data-sheet=editorial] .study-detail-grid>div:first-child{grid-column:2;grid-row:1;padding-left:25px;border-left:1px solid var(--line)}
+body[data-sheet=editorial] .study-detail-grid>div:last-child{grid-column:1;grid-row:1}
+body[data-sheet=editorial] .study-detail-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+body[data-sheet=editorial] .study-role{font-size:16px;line-height:1.45;letter-spacing:0;max-width:31ch}
+body[data-sheet=editorial] .study-contribution{font-size:clamp(22px,2.2vw,28px);line-height:1.37;letter-spacing:-.025em}
+body[data-sheet=editorial] .study-role-list{font-size:16px;line-height:1.45;letter-spacing:0;gap:7px}
+body[data-sheet=editorial] .study-contribution-list{font-size:18px;line-height:1.55;letter-spacing:0;gap:12px}
+body[data-sheet=editorial] .study-stage-note{font-size:13px;margin-top:23px}
+
+/* Ledger: a tighter title block, ruled rather than boxed. */
+body[data-sheet=ledger] .study-detail-grid{grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr);gap:0;margin-top:27px;padding:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+body[data-sheet=ledger] .study-detail-grid>div{padding:26px 31px}
+body[data-sheet=ledger] .study-detail-grid>div:first-child{border-right:1px solid var(--line)}
+body[data-sheet=ledger] .study-detail-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+body[data-sheet=ledger] .study-role{font-size:21px;line-height:1.4;letter-spacing:-.02em}
+body[data-sheet=ledger] .study-contribution{font-size:16px;line-height:1.55}
+body[data-sheet=ledger] .study-role-list{font-size:21px;line-height:1.4}
+body[data-sheet=ledger] .study-contribution-list{font-size:16px;line-height:1.55}
+body[data-sheet=ledger] .study-stage-note{font-size:13px;margin-top:15px}
+
+@media(max-width:700px){
+ .study-bar{justify-content:space-between}.sheet-choices{order:3;width:100%;justify-content:center;gap:20px;margin:5px auto 0}.sheet-choices button{font-size:12px}
+ body[data-sheet] .study-detail-grid{display:block}
+ body[data-sheet=field] .study-detail-grid,body[data-sheet=editorial] .study-detail-grid{padding:23px 24px}
+ body[data-sheet=editorial] .study-detail-grid>div:first-child{border-left:0;border-bottom:1px solid var(--line);padding:0 0 18px;margin-bottom:19px}
+ body[data-sheet=editorial] .study-contribution{font-size:22px}
+ body[data-sheet=editorial] .study-role-list{font-size:16px}
+ body[data-sheet=editorial] .study-contribution-list{font-size:17px}
+ body[data-sheet=ledger] .study-detail-grid>div{padding:20px 2px}
+ body[data-sheet=ledger] .study-detail-grid>div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+ body[data-sheet=ledger] .study-role-list{font-size:21px}
+}
+
+/* Production: current understated Join treatment, with palette-aware colors. */
+/* The work sheet and mechanism reach their final positions on the same frame. */
+body[data-study]{--work-open-time:260ms;--work-close-time:160ms;--work-open-ease:cubic-bezier(.2,.75,.2,1);--work-close-ease:cubic-bezier(.4,0,1,1)}
+body[data-study] .study-detail{transition:grid-template-rows var(--work-close-time) var(--work-close-ease),opacity var(--work-close-time) var(--work-close-ease),visibility 0s linear var(--work-close-time)}
+body[data-study] .study-open .study-detail{transition:grid-template-rows var(--work-open-time) var(--work-open-ease),opacity var(--work-open-time) var(--work-open-ease),visibility 0s}
+body[data-study] .study-toggle .study-symbol svg,
+body[data-study] .work-item[data-client=aescape] .study-gear,
+body[data-study] .study-fastener-cross{transition:transform var(--work-close-time) var(--work-close-ease),opacity var(--work-close-time) var(--work-close-ease)}
+body[data-study] .study-open .study-toggle .study-symbol svg,
+body[data-study] .work-item[data-client=aescape].study-open .study-gear,
+body[data-study] .study-open .study-fastener-cross{transition:transform var(--work-open-time) var(--work-open-ease),opacity var(--work-open-time) var(--work-open-ease)}
+@media(prefers-reduced-motion:reduce){body[data-study] .study-toggle .study-symbol svg,body[data-study] .work-item[data-client=aescape] .study-gear,body[data-study] .study-fastener-cross{transition:none!important}}
+
+/* A second restrained 5% lift keeps the marks legible within the open grid. */
+body[data-study] .client-link img{max-width:132px;max-height:42px}
+body[data-study] .logos .uber{width:84px}
+body[data-study] .logos .jump{width:66px}
+body[data-study] .logos .sandbar img{width:30.5px}
+body[data-study] .logos .sandbar{font-size:15.75px}
+body[data-study] .logos .client-clew .clew,
+body[data-study] .logos .client-clew .clew img{width:92px;max-height:38px}
+@media(max-width:640px){
+ body[data-study] .client-link img{max-height:30px}
+ body[data-study] .logos .peloton,body[data-study] .logos .aescape,body[data-study] .logos .wasted{width:86px}
+ body[data-study] .logos .uber{width:61px}
+ body[data-study] .logos .jump{width:47px}
+ body[data-study] .logos .sandbar img{width:22px}
+ body[data-study] .logos .sandbar{font-size:13.5px}
+ body[data-study] .logos .client-clew .clew,
+ body[data-study] .logos .client-clew .clew img{width:68px;max-height:30px}
+}
+@media(max-width:380px){
+ body[data-study] .logos .wasted{width:66px}
+ body[data-study] .logos .sandbar{font-size:11.5px}
+ body[data-study] .logos .sandbar img{width:16px}
+ body[data-study] .logos .client-clew .clew,
+ body[data-study] .logos .client-clew .clew img{width:58px}
+}

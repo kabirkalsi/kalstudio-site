@@ -38,40 +38,33 @@ if (waitlistTitle) {
 if (waitlistForm) {
   waitlistForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (location.hostname === '127.0.0.1' || location.hostname === 'localhost') {formStatus.textContent='Preview only — your email has not been submitted';return;}
-    if (formStatus) {
-      formStatus.textContent = "";
-    }
-
-    const formData = new FormData(waitlistForm);
-    const successMessage = "Thank you! You're on the list.";
-
-    if (!waitlistEndpoint) {
-      if (formStatus) {
-        formStatus.textContent = successMessage;
-      }
-      resetWaitlistForm();
+    if (location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
+      if (formStatus) formStatus.textContent = 'Preview only — your email has not been submitted';
       return;
     }
 
+    if (!waitlistEndpoint) {
+      if (formStatus) formStatus.textContent = 'Sign-up is temporarily unavailable. Please try again later.';
+      return;
+    }
+
+    const submitButton = waitlistForm.querySelector('[type="submit"]');
+    const formData = new FormData(waitlistForm);
+    if (formStatus) formStatus.textContent = 'Submitting…';
+    if (submitButton) submitButton.disabled = true;
+
     try {
-      if (formStatus) {
-        formStatus.textContent = successMessage;
-      }
-      resetWaitlistForm();
-      const response = await fetch(waitlistEndpoint, {
+      await fetch(waitlistEndpoint, {
         method: "POST",
         mode: waitlistEndpointMode,
         body: formData,
       });
-
-      if (waitlistEndpointMode !== "no-cors" && !response.ok) {
-        throw new Error("Request failed");
-      }
+      if (formStatus) formStatus.textContent = 'Thanks — your sign-up request was sent.';
+      resetWaitlistForm();
     } catch (error) {
-      if (formStatus) {
-        formStatus.textContent = "Something went wrong. Please try again.";
-      }
+      if (formStatus) formStatus.textContent = 'Unable to send right now. Please try again.';
+    } finally {
+      if (submitButton) submitButton.disabled = false;
     }
   });
 }
