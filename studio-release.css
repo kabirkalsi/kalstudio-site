@@ -389,3 +389,39 @@ body[data-study] .logos .client-clew .clew img{width:92px;max-height:38px}
  body[data-study] .logos .client-clew .clew,
  body[data-study] .logos .client-clew .clew img{width:58px}
 }
+
+/* Integrated fastener controls: the action sits quietly beside each project. */
+body[data-production="true"][data-study] .study-toggle.treatment-integrated{
+  min-width:122px;gap:10px;padding:0;border:0!important;border-radius:0;background:transparent;
+  color:var(--muted);font:300 14px/1.4 var(--sans);white-space:nowrap;transition:color .16s ease
+}
+body[data-production="true"][data-study] .study-toggle.treatment-integrated:hover,
+body[data-production="true"][data-study] .study-toggle.treatment-integrated:focus-visible{color:var(--ink)}
+body[data-production="true"][data-study] .study-toggle.treatment-integrated .study-toggle-label{
+  display:inline-block;min-width:70px;padding:0!important;border:0!important;text-align:right;font:inherit;line-height:1.4
+}
+body[data-production="true"][data-study] .study-toggle.treatment-integrated .study-symbol{
+  display:grid;place-items:center;width:30px;height:30px;flex:none;border:0!important;border-radius:0;background:transparent;color:inherit;transform:none!important;transition:none
+}
+body[data-production="true"][data-study] .study-toggle.treatment-integrated .screw-icon{
+  display:block!important;grid-area:1/1;width:30px;height:30px;overflow:visible;fill:none;stroke:currentColor;
+  stroke-width:1.05;stroke-linecap:round;stroke-linejoin:round;transform:none!important;transition:none
+}
+body[data-production="true"][data-study] .study-toggle.treatment-integrated .screw-icon .head-rim{stroke-width:1.05}
+body[data-production="true"][data-study] .study-toggle.treatment-integrated .screw-icon .head-bevel{stroke:var(--line);stroke-width:.65;opacity:.7}
+body[data-production="true"][data-study] .study-toggle.treatment-integrated .screw-icon .screw-drive{
+  transform-box:view-box;transform-origin:18px 18px;transition:transform 160ms cubic-bezier(.4,0,1,1)
+}
+body[data-production="true"][data-study] .work-item.study-open .study-toggle.treatment-integrated .screw-icon .screw-drive{
+  transform:rotate(var(--loosen));transition:transform 260ms cubic-bezier(.2,.75,.2,1)
+}
+@media(max-width:700px){
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated{min-width:112px;gap:7px;font-size:12px}
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated .study-toggle-label{min-width:68px}
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated .study-symbol,
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated .screw-icon{width:28px;height:28px}
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated,
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated .screw-icon .screw-drive{transition:none!important}
+}
