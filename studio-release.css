@@ -425,3 +425,52 @@ body[data-production="true"][data-study] .work-item.study-open .study-toggle.tre
   body[data-production="true"][data-study] .study-toggle.treatment-integrated,
   body[data-production="true"][data-study] .study-toggle.treatment-integrated .screw-icon .screw-drive{transition:none!important}
 }
+
+/* Match the persistent header to the same frame-by-frame palette dissolve as the page. */
+body[data-variant] .study-stage .site-header,
+body[data-variant] .study-bar{
+  background-color:color-mix(in srgb,var(--bg) calc((1 - var(--ah-progress,0))*100%),var(--after-bg) calc(var(--ah-progress,0)*100%));
+  color:color-mix(in srgb,var(--ink) calc((1 - var(--ah-progress,0))*100%),var(--after-ink) calc(var(--ah-progress,0)*100%));
+}
+body[data-variant] .study-stage .site-header .logo,
+body[data-variant] .study-stage .site-header .site-slider button,
+body[data-variant] .study-bar button{color:inherit}
+body[data-variant] .study-stage .site-header .site-slider button:not([aria-pressed=true]),
+body[data-variant] .study-bar button:not([aria-pressed=true]){
+  color:color-mix(in srgb,var(--muted) calc((1 - var(--ah-progress,0))*100%),var(--after-muted) calc(var(--ah-progress,0)*100%));
+}
+body[data-variant] .study-stage .site-slider .cam-track:before{
+  border-color:color-mix(in srgb,#b7a999 calc((1 - var(--ah-progress,0))*100%),var(--after-line) calc(var(--ah-progress,0)*100%));
+}
+body[data-variant] .study-stage .site-slider .cam-thumb{color:color-mix(in srgb,var(--ink) calc((1 - var(--ah-progress,0))*100%),var(--after-ink) calc(var(--ah-progress,0)*100%))}
+body[data-variant] .study-stage .site-slider .cam-thumb .cam-bore{fill:color-mix(in srgb,var(--bg) calc((1 - var(--ah-progress,0))*100%),var(--after-bg) calc(var(--ah-progress,0)*100%))}
+body[data-variant] .study-stage .site-slider input::-webkit-slider-runnable-track{background:color-mix(in srgb,#b7a999 calc((1 - var(--ah-progress,0))*100%),var(--after-line) calc(var(--ah-progress,0)*100%))}
+body[data-variant] .study-stage .site-slider input::-webkit-slider-thumb{border-color:color-mix(in srgb,var(--bg) calc((1 - var(--ah-progress,0))*100%),var(--after-bg) calc(var(--ah-progress,0)*100%))}
+body[data-variant] .study-stage .site-slider input::-moz-range-track{background:color-mix(in srgb,#b7a999 calc((1 - var(--ah-progress,0))*100%),var(--after-line) calc(var(--ah-progress,0)*100%))}
+body[data-variant] .study-stage .site-slider input::-moz-range-thumb{border-color:color-mix(in srgb,var(--bg) calc((1 - var(--ah-progress,0))*100%),var(--after-bg) calc(var(--ah-progress,0)*100%))}
+
+/* Mobile client marks use a true two-column rhythm, independent of desktop grid spans. */
+@media(max-width:640px){
+  body[data-study] .clients{margin:48px auto 58px;padding:22px 0 26px}
+  body[data-study] .clients .logos{width:min(100%,440px);grid-template-columns:repeat(2,minmax(0,1fr));gap:18px clamp(20px,7vw,38px);margin:20px auto 0;padding:4px 0 2px}
+  body[data-study] .clients .logos li{grid-column:auto;min-width:0;min-height:58px}
+  body[data-study] .clients .logos li:last-child{grid-column:1/-1}
+  body[data-study] .client-link{min-height:58px;padding:6px 2px}
+  body[data-study] .projects.work-study .work-item{padding-bottom:54px}
+  body[data-study] .projects.work-study .work-description{column-gap:10px}
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated{min-width:104px;gap:5px;font-size:12px}
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated .study-toggle-label{min-width:62px}
+}
+@media(max-width:380px){
+  body[data-study] .clients .logos{gap:14px 18px}
+  body[data-study] .clients .logos li,body[data-study] .client-link{min-height:54px}
+  body[data-study] .projects.work-study .work-description h3{font-size:27px}
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated{min-width:98px;font-size:11.5px}
+  body[data-production="true"][data-study] .study-toggle.treatment-integrated .study-toggle-label{min-width:58px}
+}
+
+/* The text sheet and its fastener now share one responsive, reversible motion. */
+body[data-study] .study-detail{opacity:1}
+body[data-study] .study-detail-inner{opacity:0;transform:translateY(-5px);transition:opacity var(--work-close-time) var(--work-close-ease),transform var(--work-close-time) var(--work-close-ease)}
+body[data-study] .study-open .study-detail-inner{opacity:1;transform:translateY(0);transition:opacity var(--work-open-time) var(--work-open-ease),transform var(--work-open-time) var(--work-open-ease)}
+@media(prefers-reduced-motion:reduce){body[data-study] .study-detail-inner{opacity:1;transform:none;transition:none!important}}
