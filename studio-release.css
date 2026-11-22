@@ -429,25 +429,25 @@ body[data-production="true"][data-study] .work-item.study-open .study-toggle.tre
 /* Match the persistent header to the same frame-by-frame palette dissolve as the page. */
 body[data-variant] .study-stage .site-header,
 body[data-variant] .study-bar{
-  background-color:color-mix(in srgb,var(--bg) calc((1 - var(--ah-progress,0))*100%),var(--after-bg) calc(var(--ah-progress,0)*100%));
-  color:color-mix(in srgb,var(--ink) calc((1 - var(--ah-progress,0))*100%),var(--after-ink) calc(var(--ah-progress,0)*100%));
+  background-color:color-mix(in srgb,var(--bg) var(--ah-studio-percent,100%),var(--after-bg) var(--ah-progress-percent,0%));
+  color:color-mix(in srgb,var(--ink) var(--ah-studio-percent,100%),var(--after-ink) var(--ah-progress-percent,0%));
 }
 body[data-variant] .study-stage .site-header .logo,
 body[data-variant] .study-stage .site-header .site-slider button,
 body[data-variant] .study-bar button{color:inherit}
 body[data-variant] .study-stage .site-header .site-slider button:not([aria-pressed=true]),
 body[data-variant] .study-bar button:not([aria-pressed=true]){
-  color:color-mix(in srgb,var(--muted) calc((1 - var(--ah-progress,0))*100%),var(--after-muted) calc(var(--ah-progress,0)*100%));
+  color:color-mix(in srgb,var(--muted) var(--ah-studio-percent,100%),var(--after-muted) var(--ah-progress-percent,0%));
 }
 body[data-variant] .study-stage .site-slider .cam-track:before{
-  border-color:color-mix(in srgb,#b7a999 calc((1 - var(--ah-progress,0))*100%),var(--after-line) calc(var(--ah-progress,0)*100%));
+  border-color:color-mix(in srgb,#b7a999 var(--ah-studio-percent,100%),var(--after-line) var(--ah-progress-percent,0%));
 }
-body[data-variant] .study-stage .site-slider .cam-thumb{color:color-mix(in srgb,var(--ink) calc((1 - var(--ah-progress,0))*100%),var(--after-ink) calc(var(--ah-progress,0)*100%))}
-body[data-variant] .study-stage .site-slider .cam-thumb .cam-bore{fill:color-mix(in srgb,var(--bg) calc((1 - var(--ah-progress,0))*100%),var(--after-bg) calc(var(--ah-progress,0)*100%))}
-body[data-variant] .study-stage .site-slider input::-webkit-slider-runnable-track{background:color-mix(in srgb,#b7a999 calc((1 - var(--ah-progress,0))*100%),var(--after-line) calc(var(--ah-progress,0)*100%))}
-body[data-variant] .study-stage .site-slider input::-webkit-slider-thumb{border-color:color-mix(in srgb,var(--bg) calc((1 - var(--ah-progress,0))*100%),var(--after-bg) calc(var(--ah-progress,0)*100%))}
-body[data-variant] .study-stage .site-slider input::-moz-range-track{background:color-mix(in srgb,#b7a999 calc((1 - var(--ah-progress,0))*100%),var(--after-line) calc(var(--ah-progress,0)*100%))}
-body[data-variant] .study-stage .site-slider input::-moz-range-thumb{border-color:color-mix(in srgb,var(--bg) calc((1 - var(--ah-progress,0))*100%),var(--after-bg) calc(var(--ah-progress,0)*100%))}
+body[data-variant] .study-stage .site-slider .cam-thumb{color:color-mix(in srgb,var(--ink) var(--ah-studio-percent,100%),var(--after-ink) var(--ah-progress-percent,0%))}
+body[data-variant] .study-stage .site-slider .cam-thumb .cam-bore{fill:color-mix(in srgb,var(--bg) var(--ah-studio-percent,100%),var(--after-bg) var(--ah-progress-percent,0%))}
+body[data-variant] .study-stage .site-slider input::-webkit-slider-runnable-track{background:color-mix(in srgb,#b7a999 var(--ah-studio-percent,100%),var(--after-line) var(--ah-progress-percent,0%))}
+body[data-variant] .study-stage .site-slider input::-webkit-slider-thumb{border-color:color-mix(in srgb,var(--bg) var(--ah-studio-percent,100%),var(--after-bg) var(--ah-progress-percent,0%))}
+body[data-variant] .study-stage .site-slider input::-moz-range-track{background:color-mix(in srgb,#b7a999 var(--ah-studio-percent,100%),var(--after-line) var(--ah-progress-percent,0%))}
+body[data-variant] .study-stage .site-slider input::-moz-range-thumb{border-color:color-mix(in srgb,var(--bg) var(--ah-studio-percent,100%),var(--after-bg) var(--ah-progress-percent,0%))}
 
 /* Mobile client marks use a true two-column rhythm, independent of desktop grid spans. */
 @media(max-width:640px){

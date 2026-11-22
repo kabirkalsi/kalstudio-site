@@ -80,6 +80,8 @@
     input.setAttribute('aria-valuetext', fraction < .5 ? 'Studio' : 'After Hours');
     slider.style.setProperty('--cam-position', fraction);
     document.body.style.setProperty('--ah-progress', String(fraction));
+    document.body.style.setProperty('--ah-progress-percent', `${fraction * 100}%`);
+    document.body.style.setProperty('--ah-studio-percent', `${(1 - fraction) * 100}%`);
     studio.style.opacity = String(1 - fraction);
     if (after) after.style.opacity = String(fraction);
     blue.style.opacity = String(Math.sin(fraction * Math.PI) * .18);
